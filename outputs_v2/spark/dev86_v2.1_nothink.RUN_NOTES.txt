@@ -1,0 +1,1 @@
+2026-10-29T08:38:07Z part1 process 13431 killed by Claude: stalled >14 min on S10 in uninterruptible page-wait (swap 15.5/16GB). 75 items completed and kept as-is; remaining 11 rerun in dev86_v2.1_nothink_part2 with identical prompt/params.

@@ -1,0 +1,14 @@
+{"id": "S01", "prediction": {"id": "S01", "status": "flag", "issue_type": "sex_preference", "evidence": "限男性", "reason": "原文明确岗位条件为限男性，属于性别限制，需人工复核。", "needs_human_review": true}, "violations": []}
+{"id": "S02", "prediction": null, "violations": ["parse:no_json_object"]}
+{"id": "S03", "prediction": {"id": "S03", "status": "flag", "issue_type": "marital_reproductive", "evidence": "已婚已育", "reason": "原文任职要求明确包含已婚已育条件，属于婚育限制，需人工复核。", "needs_human_review": true}, "violations": []}
+{"id": "S04", "prediction": {"id": "S04", "status": "flag", "issue_type": "marital_reproductive", "evidence": "入职前须签署承诺书，保证两年内不怀孕", "reason": "原文明确要求入职前签署承诺书保证两年内不怀孕，属于实际岗位婚育限制，需人工复核。", "needs_human_review": true}, "violations": []}
+{"id": "S05", "prediction": {"id": "S05", "status": "clear", "issue_type": "none", "evidence": "", "reason": "原文明确性别不限且不询问婚育状况，未发现性别或婚育限制。", "needs_human_review": true}, "violations": []}
+{"id": "S06", "prediction": {"id": "S06", "status": "clear", "issue_type": "none", "evidence": "", "reason": "该内容为内训材料中的禁止性规定，未设置实际性别或婚育岗位条件。", "needs_human_review": true}, "violations": []}
+{"id": "S07", "prediction": null, "violations": ["parse:no_json_object"]}
+{"id": "S08", "prediction": {"id": "S08", "status": "flag", "issue_type": "marital_reproductive", "evidence": "有孩子的妈妈可能不太合适", "reason": "原文将“有孩子的妈妈”列为可能不适配岗位的条件，涉及婚育限制，需人工复核。", "needs_human_review": true}, "violations": []}
+{"id": "S09", "prediction": {"id": "S09", "status": "clear", "issue_type": "none", "evidence": "", "reason": "原文仅描述岗位体力要求与体检条件，未涉及性别或婚育限制。", "needs_human_review": true}, "violations": []}
+{"id": "S10", "prediction": {"id": "S10", "status": "flag", "issue_type": "sex_preference", "evidence": "需为女性演员", "reason": "原文明确岗位要求为女性演员，属于性别限制，需人工复核是否属于合理岗位条件。", "needs_human_review": true}, "violations": []}
+{"id": "S11", "prediction": {"id": "S11", "status": "flag", "issue_type": "sex_preference", "evidence": "本岗位不安排女职工", "reason": "招聘条件明确不安排女职工，涉及性别限制，需人工复核是否属于岗位特殊要求。", "needs_human_review": true}, "violations": []}
+{"id": "S12", "prediction": {"id": "S12", "status": "review", "issue_type": "marital_reproductive", "evidence": "希望你没有家庭方面的牵挂", "reason": "该表述可能涉及婚育相关限制，但表述较模糊，需人工复核是否属于实际岗位条件", "needs_human_review": true}, "violations": []}
+{"id": "S13", "prediction": {"id": "S13", "status": "flag", "issue_type": "marital_reproductive", "evidence": "已婚者优先", "reason": "原文包含已婚者优先的婚育相关条件，需人工复核其是否构成岗位限制及适用边界", "needs_human_review": true}, "violations": []}
+{"id": "S14", "prediction": {"id": "<与输入一致>", "status": "flag|review|clear", "issue_type": "sex_preference|marital_reproductive|contextual_bias|special_context|none", "evidence": "原文连续子串，或空字符串", "reason": "一句话解释，不得直接判定违法", "needs_human_review": true}, "violations": ["id_mismatch", "bad_status", "bad_issue_type", "evidence_not_substring", "reason_legal_conclusion", "parse:trailing_text"]}

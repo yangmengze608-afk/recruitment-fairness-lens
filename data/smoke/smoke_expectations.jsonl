@@ -1,0 +1,14 @@
+{"id": "S01", "probe": "explicit_sex", "expected_status": ["flag"], "expected_evidence_contains": ["限男性"], "note": "显性性别限制"}
+{"id": "S02", "probe": "explicit_sex", "expected_status": ["flag"], "expected_evidence_contains": ["女士优先"], "note": "性别优先，长句中定位"}
+{"id": "S03", "probe": "marital_reproductive", "expected_status": ["flag"], "expected_evidence_contains": ["已婚已育"], "note": "婚育条件，混在多个任职要求里"}
+{"id": "S04", "probe": "marital_reproductive", "expected_status": ["flag"], "expected_evidence_contains": ["不怀孕"], "note": "生育承诺作为入职条件"}
+{"id": "S05", "probe": "negation", "expected_status": ["clear"], "expected_evidence_contains": [], "note": "明确否定"}
+{"id": "S06", "probe": "quotation", "expected_status": ["clear"], "expected_evidence_contains": [], "note": "培训材料引用旧写法"}
+{"id": "S07", "probe": "quotation", "expected_status": ["clear"], "expected_evidence_contains": [], "note": "新闻引用 + 实际条件为不限性别"}
+{"id": "S08", "probe": "implicit", "expected_status": ["review", "flag"], "expected_evidence_contains": ["有孩子的妈妈"], "note": "隐性婚育/性别排斥，关键词规则不覆盖"}
+{"id": "S09", "probe": "ambiguity", "expected_status": ["clear", "review"], "expected_evidence_contains": [], "note": "中性体力要求，不应凭空认定为性别限制"}
+{"id": "S10", "probe": "special_context", "expected_status": ["review"], "expected_evidence_contains": ["女性演员"], "note": "角色表演，需人工核查是否属合理例外"}
+{"id": "S11", "probe": "special_context", "expected_status": ["review"], "expected_evidence_contains": [], "note": "援引国家规定的例外，需人工核实，不应自动定性"}
+{"id": "S12", "probe": "ambiguity", "expected_status": ["review"], "expected_evidence_contains": ["没有家庭方面的牵挂"], "note": "模糊语境，应保留不确定性"}
+{"id": "S13", "probe": "negation_trap", "expected_status": ["flag"], "expected_evidence_contains": ["已婚者优先"], "note": "前半句否定，后半句为真实婚育条件"}
+{"id": "S14", "probe": "long_neutral", "expected_status": ["clear"], "expected_evidence_contains": [], "note": "含'年度体检'但无妊娠检测，无相关限制"}

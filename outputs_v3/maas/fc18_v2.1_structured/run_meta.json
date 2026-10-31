@@ -1,0 +1,48 @@
+{
+ "started_utc": "2026-10-29T13:36:36.007024+00:00",
+ "provider_meta": {
+  "structured_output": "function-calling tool_choice=submit_triage (JSON Schema)",
+  "provider": "xfyun_maas",
+  "url": "https://maas-api.cn-huabei-1.xf-yun.com/v2/chat/completions",
+  "model": "spark-x2.6-4b",
+  "thinking": {
+   "type": "disabled"
+  },
+  "max_completion_tokens": 640,
+  "stream": false,
+  "sampling": "server-fixed temperature=1, top_p=0.95 (not sent; per MaaS docs); not deterministic",
+  "revision": "云端具体 revision 未披露",
+  "timeout_s": 90,
+  "max_retries": 2,
+  "max_calls_per_process": 40
+ },
+ "prompt_module": "rfl.prompt_v2_1",
+ "prompt_version": "v2.1-2026-10-29",
+ "contract_version": "v2-2026-10-29",
+ "postprocess": "none",
+ "input": "data_v2/dev_inputs.jsonl",
+ "ids": [
+  "E001",
+  "E002",
+  "E016",
+  "E024",
+  "E033",
+  "E034",
+  "E038",
+  "E039",
+  "E042",
+  "E045",
+  "R002",
+  "R004",
+  "R010",
+  "R014",
+  "S08",
+  "S11",
+  "P01",
+  "P03"
+ ],
+ "client_platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+ "python": "3.13.11",
+ "finished_utc": "2026-10-29T13:38:28.030308+00:00",
+ "http_attempts": 18
+}

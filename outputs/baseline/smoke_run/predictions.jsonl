@@ -1,0 +1,14 @@
+{"id": "S01", "prediction": {"id": "S01", "status": "flag", "issue_type": "sex_preference", "evidence": "限男性", "reason": "发现限制性关键词，需人工复核实际法律语境", "needs_human_review": true}, "violations": []}
+{"id": "S02", "prediction": {"id": "S02", "status": "flag", "issue_type": "sex_preference", "evidence": "女士优先", "reason": "发现限制性关键词，需人工复核实际法律语境", "needs_human_review": true}, "violations": []}
+{"id": "S03", "prediction": {"id": "S03", "status": "flag", "issue_type": "marital_reproductive", "evidence": "已婚已育", "reason": "发现限制性关键词，需人工复核实际法律语境", "needs_human_review": true}, "violations": []}
+{"id": "S04", "prediction": {"id": "S04", "status": "flag", "issue_type": "marital_reproductive", "evidence": "不怀孕", "reason": "发现限制性关键词，需人工复核实际法律语境", "needs_human_review": true}, "violations": []}
+{"id": "S05", "prediction": {"id": "S05", "status": "clear", "issue_type": "none", "evidence": "", "reason": "存在平等招聘或否定限制的表述", "needs_human_review": false}, "violations": []}
+{"id": "S06", "prediction": {"id": "S06", "status": "clear", "issue_type": "none", "evidence": "", "reason": "疑似法律讨论/已撤销限制表达，需核对文本性质", "needs_human_review": true}, "violations": []}
+{"id": "S07", "prediction": {"id": "S07", "status": "flag", "issue_type": "sex_preference", "evidence": "限男性", "reason": "发现限制性关键词，需人工复核实际法律语境", "needs_human_review": true}, "violations": []}
+{"id": "S08", "prediction": {"id": "S08", "status": "clear", "issue_type": "none", "evidence": "", "reason": "规则未命中；不代表法律合规", "needs_human_review": false}, "violations": []}
+{"id": "S09", "prediction": {"id": "S09", "status": "clear", "issue_type": "none", "evidence": "", "reason": "规则未命中；不代表法律合规", "needs_human_review": false}, "violations": []}
+{"id": "S10", "prediction": {"id": "S10", "status": "review", "issue_type": "special_context", "evidence": "演员", "reason": "特殊活动或国家规定背景待核实", "needs_human_review": true}, "violations": []}
+{"id": "S11", "prediction": {"id": "S11", "status": "clear", "issue_type": "none", "evidence": "", "reason": "规则未命中；不代表法律合规", "needs_human_review": false}, "violations": []}
+{"id": "S12", "prediction": {"id": "S12", "status": "clear", "issue_type": "none", "evidence": "", "reason": "规则未命中；不代表法律合规", "needs_human_review": false}, "violations": []}
+{"id": "S13", "prediction": {"id": "S13", "status": "clear", "issue_type": "none", "evidence": "", "reason": "存在平等招聘或否定限制的表述", "needs_human_review": false}, "violations": []}
+{"id": "S14", "prediction": {"id": "S14", "status": "clear", "issue_type": "none", "evidence": "", "reason": "规则未命中；不代表法律合规", "needs_human_review": false}, "violations": []}

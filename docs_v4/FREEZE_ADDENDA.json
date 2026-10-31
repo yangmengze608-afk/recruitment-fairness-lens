@@ -1,0 +1,42 @@
+{
+ "base_freeze": "docs_v3/FREEZE_v2.1_pp2.3.json",
+ "rule": "只登记不影响推理、校验、后处理和分流映射的改动；这些文件改动后，无需重跑锁定测试。",
+ "entries": [
+  {
+   "date_utc": "2026-10-29T14:20Z",
+   "file": "mvp/index.html",
+   "reason": "界面：展示已保存的人工复核记录",
+   "sha256": "7ceace190dbe54766e1e18a047031aa6ed5e36aea3985dfd43ad56fab5db9ba0"
+  },
+  {
+   "date_utc": "2026-10-30T08:33:10.905685+00:00",
+   "file": "mvp/server.py",
+   "reason": "安全与稳定性：拒绝跨站和非 JSON 的 POST；JSON 解析错误返回 400；人工分流和逐条判断只接受白名单取值；analyze 异常返回 500 且不生成判断。推理调用路径（analyse、provider、后处理）未改。",
+   "sha256": "ca63354c46296f2f0cf5cf722cd88825a191429233dc12532f107fe5d88daf39"
+  },
+  {
+   "date_utc": "2026-10-31T03:20:07.502242+00:00",
+   "file": "mvp/index.html",
+   "reason": "界面：URL 参数 hide=sources 隐藏法源注释（用于公开截图，待法学合作者授权）。推理不变。",
+   "sha256": "7f84036871756b5de59fa21533f53b6329d59d16715a05e2061dba3e5838e1d3"
+  },
+  {
+   "date_utc": "2026-10-31T03:20:44.966372+00:00",
+   "file": "mvp/server.py",
+   "reason": "加载 mvp/logs/voided_reviews.json，给人工记录打作废标记（原记录不删）。推理不变。",
+   "sha256": "ca611f15cd7870ed8b68020acd5dc25d82f2ba03d672a2ddffb907b26b6f8891"
+  },
+  {
+   "date_utc": "2026-10-31T03:20:44.966688+00:00",
+   "file": "mvp/index.html",
+   "reason": "界面：作废记录显示删除线和原因。推理不变。",
+   "sha256": "7d3645729366d77035994a1dbcaf8f505b88f491424837fd86b3eed7954bac61"
+  },
+  {
+   "date_utc": "2026-10-31T03:39:04.270211+00:00",
+   "file": "mvp/index.html",
+   "reason": "界面：照护提示语改为自写表述（原句来自法学研究）；hide=sources 时同时隐藏 SOP 问题原文。推理不变。",
+   "sha256": "de6be100d84083106469532709bfea422935902414b21011b4963f422a76511c"
+  }
+ ]
+}

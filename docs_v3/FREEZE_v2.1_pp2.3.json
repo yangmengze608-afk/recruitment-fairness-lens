@@ -1,0 +1,49 @@
+{
+ "frozen_utc": "2026-10-29T14:10:22.490001+00:00",
+ "prompt_module": "rfl.prompt_v2_1",
+ "prompt_version": "v2.1-2026-10-29",
+ "prompt_file_sha256": "62a40a7fec3c7dedf1ecc4ed9ad74a7580ca4635227514572ca48150ebde2f66",
+ "system_prompt_sha256": "b413b6ca589cb2ebb6590bc976ac443eca7aff799fe0f03a6047bf10c6dc70c2",
+ "files_sha256": {
+  "rfl/contract.py": "b14b60c4c72de4f5292010e0d11938d04cedd6edd6862f2c1c95169aff7753e3",
+  "rfl/contract_v2.py": "caa6fd2527e7b36b684d5cadf605e69e47c78c65af455f32e2df70188a02c4b2",
+  "scripts/run_spark_v2.py": "6970f995f9b01dd7e31d848247913e82059f325d235a9b864a1e91b4cc50b57d",
+  "scripts/evaluate_v2.py": "f50c3bb43f0166e42eaa247a56b92412eb16f1f246305258d7d5173e35b58324",
+  "baseline/baseline.py": "81fa1d2522c34eb62cd7b8c65bb192f380a1900a06debae8db230ceea6cdcf77",
+  "baseline/rules_v2.py": "eed3d1cc673b7b2dd8190db0b3832ad176debb8ba55d9fe2b6d449e23e513a5f",
+  "data_v2/legal_sources_whitelist.json": "68d2dd4a792f406eee025a8a2fd45a4f04e001cce3f9116907b6c54dc2c745c7",
+  "env/model_revision.json": "122df9afe69235a46f3286a0236ca966bc25cc32e5e1e8454fde5ee01f3e4f89",
+  "rfl/providers.py": "cb38196fb70cf751ea61d3dedccd68daf312076a7a854eaeeea989c20e6f737e",
+  "rfl/postprocess_v2_2.py": "7215776c168ac6b5b92ca3d1014236c91d65b41b0381a53c8b8dd6b4e10215c5",
+  "rfl/postprocess_v2_3.py": "6e13d76c69a7148babf217526cef67ba841468b35a7e54000e08b2cec3b47d42",
+  "scripts/run_provider.py": "2d14b6c98d2b0f738db3bcecef228112d05a1dcde1dc1c42d1daa9add772758b",
+  "mvp/server.py": "3c714f4958674552a1055f8017b1c461e65a279abd30ab98afdd286b02695711",
+  "mvp/index.html": "9cb5ef2b3c0663a55ee7c1a2e12396ab578ed303c391ac2d32114be33be38b0f"
+ },
+ "generation": {
+  "local_transformers": {
+   "do_sample": false,
+   "max_new_tokens": 640,
+   "enable_thinking": false,
+   "dtype": "bfloat16",
+   "device": "mps"
+  },
+  "xfyun_maas": {
+   "model": "spark-x2.6-4b",
+   "thinking": {
+    "type": "disabled"
+   },
+   "max_completion_tokens": 640,
+   "sampling": "server-fixed T=1, top_p=0.95",
+   "revision": "云端具体 revision 未披露"
+  }
+ },
+ "postprocess": "v2.3-2026-10-30",
+ "locked_inputs_sha256_registered": null,
+ "decision": "项目负责人于 2026-10-30 确认冻结：Prompt v2.1 + 后处理 v2.3 + 契约 v2，作为锁定测试版本。冻结后不得再修改提示词、后处理或分流映射；若修改，原锁定测试降级为开发集。",
+ "frozen_providers": {
+  "primary_demo": "xfyun_maas spark-x2.6-4b",
+  "fallback": "local_transformers HF d1b5f260"
+ },
+ "mvp_note": "mvp/*.html 与 server.py 的哈希一并记录；仅界面文字改动不影响推理，但若改动需重新登记哈希并说明。"
+}

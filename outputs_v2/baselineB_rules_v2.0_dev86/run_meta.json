@@ -1,0 +1,6 @@
+{
+ "baseline": "B",
+ "rules_version": "rules-v2.0-2026-10-29",
+ "input": "data_v2/dev_inputs.jsonl",
+ "n": 86
+}

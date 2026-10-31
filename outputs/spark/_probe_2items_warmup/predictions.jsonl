@@ -1,0 +1,2 @@
+{"id": "S01", "prediction": {"id": "S01", "status": "flag", "issue_type": "sex_preference", "evidence": "限男性", "reason": "原文明确设置男性限制，属于性别限制类岗位条件，需人工复核是否属于合理例外", "needs_human_review": true}, "violations": []}
+{"id": "S02", "prediction": {"id": "S02", "status": "flag", "issue_type": "sex_preference", "evidence": "女士优先", "reason": "原文设置了性别优先条件，可能涉及性别限制，需人工复核是否属于合理岗位条件或例外情况", "needs_human_review": true}, "violations": []}

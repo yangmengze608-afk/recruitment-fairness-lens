@@ -1,0 +1,6 @@
+{
+ "date_utc": "2026-10-29T14:12:56.754710+00:00",
+ "base_freeze": "docs_v3/FREEZE_v2.1_pp2.3.json",
+ "change": "mvp/index.html：仅界面改动——展示已保存的人工复核记录（审核人、逐条判断、处理状态、备注）。推理、校验、后处理、分流映射未改。",
+ "mvp/index.html_sha256_new": "7ceace190dbe54766e1e18a047031aa6ed5e36aea3985dfd43ad56fab5db9ba0"
+}

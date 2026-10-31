@@ -1,0 +1,17 @@
+
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]
+Loading checkpoint shards: 100%|██████████| 5/5 [00:00<00:00, 82.71it/s]
+loaded in 8.73s on mps
+The following generation flags are not valid and may be ignored: ['top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+S10 22.632s tok=81 triage=flag reasons=['explicit_sex'] viol=[]
+S11 20.245s tok=102 triage=invalid reasons=None viol=['missing_key:missing_facts', 'extra_keys:missing_fs']
+S12 134.524s tok=123 triage=review reasons=['care_condition'] viol=[]
+S13 31.96s tok=86 triage=flag reasons=['marriage_birth'] viol=[]
+S14 32.388s tok=87 triage=clear reasons=[] viol=[]
+P01 43.174s tok=137 triage=flag reasons=['explicit_sex', 'marriage_birth'] viol=[]
+P02 25.395s tok=74 triage=flag reasons=['explicit_sex'] viol=[]
+P03 25.13s tok=74 triage=clear reasons=[] viol=[]
+P04 36.266s tok=124 triage=flag reasons=['explicit_sex'] viol=[]
+P05 34.475s tok=99 triage=flag reasons=['explicit_sex'] viol=[]
+P06 43.719s tok=115 triage=review reasons=['care_condition'] viol=[]
+{"n": 11, "mean": 40.901, "median": 32.388, "min": 20.245, "max": 134.524, "total": 449.908}

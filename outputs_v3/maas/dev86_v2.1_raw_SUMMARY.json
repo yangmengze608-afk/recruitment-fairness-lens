@@ -1,0 +1,17 @@
+{
+ "n": 86,
+ "http_attempts": 87,
+ "errors": [],
+ "response_models": [
+  "spark-x2.6-4b"
+ ],
+ "finish_reasons": [
+  "stop"
+ ],
+ "latency_median": 4.125500000000001,
+ "latency_p95": 7.215,
+ "latency_max": 94.817,
+ "prompt_tokens": 114069,
+ "cached_prompt_tokens": 110080,
+ "completion_tokens": 8008
+}

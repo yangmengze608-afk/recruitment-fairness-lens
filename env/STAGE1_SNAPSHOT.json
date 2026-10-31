@@ -1,0 +1,242 @@
+{
+ "created_utc": "2026-10-29T02:54:53.220363+00:00",
+ "purpose": "Stage-1 (round 1) snapshot taken BEFORE integrating 招聘公平镜_GPT交接包_20261028.zip. Files listed here must not be edited; Stage-2 writes new files only.",
+ "round1_prompt_version": "v1-2026-10-29",
+ "round1_label_source": "draft_status from starter kit (not gold)",
+ "files": [
+  {
+   "path": "outputs/baseline/seed_predictions.jsonl",
+   "bytes": 8984,
+   "sha256": "d152bd26795a3e53fd2543a7b8c8f2c3501ef2d837189853cd86aa087fc457a4",
+   "mtime_utc": "2026-10-28T14:05:15.070864+00:00"
+  },
+  {
+   "path": "outputs/baseline/smoke_predictions.jsonl",
+   "bytes": 2400,
+   "sha256": "4c75d885e7cfe4a606fec22665b15c32ad0a80495798a1bc5398d0e7d5eda955",
+   "mtime_utc": "2026-10-28T14:05:15.047116+00:00"
+  },
+  {
+   "path": "outputs/baseline/smoke_run/predictions.jsonl",
+   "bytes": 3058,
+   "sha256": "f2de12b2fa6b1034b9a956fe6cde5d856b26fbe3b9b38206443e78f2fe899b1d",
+   "mtime_utc": "2026-10-28T14:05:32.651974+00:00"
+  },
+  {
+   "path": "outputs/baseline/smoke_run/raw.jsonl",
+   "bytes": 196,
+   "sha256": "c9d0ce67e96c6285773e81f9db3d1b427e5aa355d1f6c9aeaad3ea699d83368c",
+   "mtime_utc": "2026-10-28T14:05:32.651997+00:00"
+  },
+  {
+   "path": "outputs/baseline/smoke_run/smoke_check.json",
+   "bytes": 6072,
+   "sha256": "7d57890c0ada972c33927a24578abbc1b1a3ec7864fa4dfbe1d5083005466e65",
+   "mtime_utc": "2026-10-28T14:05:32.677382+00:00"
+  },
+  {
+   "path": "outputs/internal_dev/baseline_vs_draft.json",
+   "bytes": 2548,
+   "sha256": "1ef3e2462aa7cd3edfd8811f7c1a7dc6165a61e8dd4a1b767a13b1f0f7215bbb",
+   "mtime_utc": "2026-10-28T15:32:00.364255+00:00"
+  },
+  {
+   "path": "outputs/internal_dev/spark_vs_draft.json",
+   "bytes": 3285,
+   "sha256": "71b2a722583dc21c8ae922af0141c7446254c2436bdd166af5048c082c90e1c2",
+   "mtime_utc": "2026-10-28T15:32:00.394735+00:00"
+  },
+  {
+   "path": "outputs/spark/_probe_2items_warmup/predictions.jsonl",
+   "bytes": 590,
+   "sha256": "581eceb9d83fc41e5c7f3868d905f3814318d7fcc39b6f86b6401591b6f9ab3c",
+   "mtime_utc": "2026-10-28T14:11:17.128900+00:00"
+  },
+  {
+   "path": "outputs/spark/_probe_2items_warmup/raw.jsonl",
+   "bytes": 5792,
+   "sha256": "46da1d504ed5a944001db5cf26bc82bab595deb85a5f04b394d8776a91dec275",
+   "mtime_utc": "2026-10-28T14:11:17.124667+00:00"
+  },
+  {
+   "path": "outputs/spark/_probe_2items_warmup/run_meta.json",
+   "bytes": 3309,
+   "sha256": "812a80ea6c6b07af0b7aa2071dca9e652d38230a23084d822c77bfe67b66d06b",
+   "mtime_utc": "2026-10-28T14:11:17.252707+00:00"
+  },
+  {
+   "path": "outputs/spark/seed50_v1_nothink/predictions.jsonl",
+   "bytes": 15975,
+   "sha256": "2a433e6baa82aeef94db387a5ec321e7336fc9d844ca33416a2545f77b0bdae2",
+   "mtime_utc": "2026-10-28T14:36:55.381489+00:00"
+  },
+  {
+   "path": "outputs/spark/seed50_v1_nothink/raw.jsonl",
+   "bytes": 139322,
+   "sha256": "122c62efa8e9fc3a86f32930245081c86aaf3f1d0937e43672267f13f46a0f87",
+   "mtime_utc": "2026-10-28T14:36:55.381028+00:00"
+  },
+  {
+   "path": "outputs/spark/seed50_v1_nothink/run_meta.json",
+   "bytes": 3306,
+   "sha256": "afa642d151a20445b0bbd5d4c41dc722929a032421cb0707a01443d9d52d2946",
+   "mtime_utc": "2026-10-28T14:36:55.404410+00:00"
+  },
+  {
+   "path": "outputs/spark/seed50_v1_nothink.log",
+   "bytes": 2410,
+   "sha256": "450eff0caa1db453a10a14977fbcfa8727787b19c3bb11e8811fb1b05dfcea40",
+   "mtime_utc": "2026-10-28T14:36:55.709199+00:00"
+  },
+  {
+   "path": "outputs/spark/smoke_v1_nothink/predictions.jsonl",
+   "bytes": 4340,
+   "sha256": "e2b18035b69deca8429d16dd7347dec746c767a59a8dbdacdfa36918268cff57",
+   "mtime_utc": "2026-10-28T14:16:23.782502+00:00"
+  },
+  {
+   "path": "outputs/spark/smoke_v1_nothink/raw.jsonl",
+   "bytes": 41222,
+   "sha256": "2fad8868d7ca73915f25a7cbda0df22f616e4ccd265aeb1c81bb9c9364e308dd",
+   "mtime_utc": "2026-10-28T14:16:23.782050+00:00"
+  },
+  {
+   "path": "outputs/spark/smoke_v1_nothink/run_meta.json",
+   "bytes": 3309,
+   "sha256": "adc971b6008eb88769c07fbf55d234963d905f450e4e264e1ed33c40f068395b",
+   "mtime_utc": "2026-10-28T14:16:23.808320+00:00"
+  },
+  {
+   "path": "outputs/spark/smoke_v1_nothink/smoke_check.json",
+   "bytes": 7350,
+   "sha256": "8c27aaeaa3ce78209f83ce0c43633e77679a79cb73c755e1d1e2cbfd4fa66a00",
+   "mtime_utc": "2026-10-28T14:16:28.067994+00:00"
+  },
+  {
+   "path": "outputs/spark/smoke_v1_thinklow/predictions.jsonl",
+   "bytes": 3767,
+   "sha256": "70b5a9a4e69ba8864e4d6778ba4b481beb3319899708ff061e87cdc2d235098c",
+   "mtime_utc": "2026-10-28T15:21:17.375927+00:00"
+  },
+  {
+   "path": "outputs/spark/smoke_v1_thinklow/raw.jsonl",
+   "bytes": 151787,
+   "sha256": "0d18db9f9dffd56d35d95261bb3b0572955ae8cffccc77d878aad354a0d59147",
+   "mtime_utc": "2026-10-28T15:21:17.375338+00:00"
+  },
+  {
+   "path": "outputs/spark/smoke_v1_thinklow/run_meta.json",
+   "bytes": 3344,
+   "sha256": "41f6ed5a7df7d15ab8440a35c4fa22645809893b65fd827ff2f0f8e8a2a54fe6",
+   "mtime_utc": "2026-10-28T15:21:17.386048+00:00"
+  },
+  {
+   "path": "outputs/spark/smoke_v1_thinklow/smoke_check.json",
+   "bytes": 7103,
+   "sha256": "b2b7bb6e6c76693657a814e1f60acac0be90d856c021ee06f5b678c4261db238",
+   "mtime_utc": "2026-10-28T15:21:48.301221+00:00"
+  },
+  {
+   "path": "outputs/spark/smoke_v1_thinklow.log",
+   "bytes": 1175,
+   "sha256": "ccd0c78ffd1b2e2c84ccba247ee657662f6fb9b88dd4cc76a611df404adabeae",
+   "mtime_utc": "2026-10-28T15:21:17.636441+00:00"
+  },
+  {
+   "path": "data/draft_labels_INTERNAL.jsonl",
+   "bytes": 3645,
+   "sha256": "6c569a7b026f9a04c48bbd79827797d4933a41ab9ba05fb2170305db1a287b3b",
+   "mtime_utc": "2026-10-28T14:05:15.009754+00:00"
+  },
+  {
+   "path": "data/seed_cases.jsonl",
+   "bytes": 9500,
+   "sha256": "66354057f85e374cbb02c8cd861479e853c35be28ca8f4dc011e86ec4839eef5",
+   "mtime_utc": "2026-10-28T14:05:14.910147+00:00"
+  },
+  {
+   "path": "data/seed_inputs_only.jsonl",
+   "bytes": 3747,
+   "sha256": "2a89dd599d08121e8a5059cd8e98bc3644fd0ce4febd2e7e73209ec6a6e8ff05",
+   "mtime_utc": "2026-10-28T14:05:15.009605+00:00"
+  },
+  {
+   "path": "data/smoke/smoke_expectations.jsonl",
+   "bytes": 2321,
+   "sha256": "6334937686c545734b7acaaa105448bbe2f4899a25ae97849c836df8bb01af46",
+   "mtime_utc": "2026-10-28T14:04:18.090050+00:00"
+  },
+  {
+   "path": "data/smoke/smoke_inputs.jsonl",
+   "bytes": 1866,
+   "sha256": "51b8fdc2c6b017a607e2f8fefd82079db2fba119e88afc466a51ed06a2a1b999",
+   "mtime_utc": "2026-10-28T14:04:18.087725+00:00"
+  },
+  {
+   "path": "docs/FAILURES.md",
+   "bytes": 2715,
+   "sha256": "55aa63de7d36c51b963b76c7b74f1d5bcd28b8057be77fc6ccc1858e174ceaf0",
+   "mtime_utc": "2026-10-28T15:32:49.016060+00:00"
+  },
+  {
+   "path": "docs/GO_NO_GO.md",
+   "bytes": 1968,
+   "sha256": "44f17372d56a23da1a5826496aa6260f1a98d40b36d2db7d2d80a58fccea8cce",
+   "mtime_utc": "2026-10-28T15:32:49.019511+00:00"
+  },
+  {
+   "path": "docs/PHASE1_AUDIT.md",
+   "bytes": 3528,
+   "sha256": "3a3367eea4805d696267a70c2c533ac7d77b466d19fa13ad043a24fa1b11a832",
+   "mtime_utc": "2026-10-28T14:47:27.847254+00:00"
+  },
+  {
+   "path": "docs/ROUND1_STATUS.md",
+   "bytes": 2573,
+   "sha256": "f60e56e366d1175a189a3930c905c8ecb4bd90ad91ea31057037bcfc730364fa",
+   "mtime_utc": "2026-10-28T15:33:26.541974+00:00"
+  },
+  {
+   "path": "rfl/__init__.py",
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "mtime_utc": "2026-10-28T14:03:28.494789+00:00"
+  },
+  {
+   "path": "rfl/contract.py",
+   "bytes": 3845,
+   "sha256": "b14b60c4c72de4f5292010e0d11938d04cedd6edd6862f2c1c95169aff7753e3",
+   "mtime_utc": "2026-10-28T14:03:28.427301+00:00"
+  },
+  {
+   "path": "rfl/prompt.py",
+   "bytes": 1425,
+   "sha256": "b36ebc673ae5b8b155d85a25f0b93411e863bb6e08ae2dd0e5b028551e15ced3",
+   "mtime_utc": "2026-10-28T14:03:28.464222+00:00"
+  },
+  {
+   "path": "scripts/check_smoke.py",
+   "bytes": 2358,
+   "sha256": "41b4c1ab1ed811f688f181f1385486417f467fd51e90df7efcf1328b077812ff",
+   "mtime_utc": "2026-10-28T14:04:50.260721+00:00"
+  },
+  {
+   "path": "scripts/evaluate.py",
+   "bytes": 5568,
+   "sha256": "70597ddf46927144e9eeffaea584cea37e51a7e748c7f98117e329293dcfa2c8",
+   "mtime_utc": "2026-10-28T14:04:50.232903+00:00"
+  },
+  {
+   "path": "scripts/run_spark.py",
+   "bytes": 6563,
+   "sha256": "f2e5a68f302cd87e25a944378eb0226582786ceb4f829fbafea0f824a1636068",
+   "mtime_utc": "2026-10-28T14:03:55.447496+00:00"
+  },
+  {
+   "path": "baseline/baseline.py",
+   "bytes": 3765,
+   "sha256": "81fa1d2522c34eb62cd7b8c65bb192f380a1900a06debae8db230ceea6cdcf77",
+   "mtime_utc": "2026-10-28T14:05:14.906832+00:00"
+  }
+ ]
+}

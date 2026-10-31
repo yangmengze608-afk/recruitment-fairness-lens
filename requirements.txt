@@ -1,0 +1,6 @@
+# Model runtime (official README pins transformers==4.57.1)
+transformers==4.57.1
+torch==2.14.1
+safetensors
+accelerate
+# Full resolved list: env/pip_freeze.txt. Baseline/evaluator/tests need only Python 3.9+ stdlib.

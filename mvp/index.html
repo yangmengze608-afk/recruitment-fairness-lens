@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>招聘公平镜</title>
+<style>
+:root{--bg:#f7f6f3;--panel:#fff;--ink:#1d1d1f;--muted:#6b6b70;--line:#e3e1dc;--flag:#b3261e;--review:#8a5a00;--unknown:#4a4fa8;--clear:#2e6b3a;--mark:#ffe08a;--accent:#2b5fab}
+@media (prefers-color-scheme:dark){:root{--bg:#161618;--panel:#1f1f22;--ink:#ececee;--muted:#a0a0a6;--line:#333338;--flag:#ff8a80;--review:#f0b64d;--unknown:#a9adff;--clear:#7fd08e;--mark:#6b5600;--accent:#8fb4ff}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 -apple-system,"PingFang SC","Noto Sans SC",sans-serif}
+main{max-width:960px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:22px;margin:0 0 4px}.sub{color:var(--muted);margin:0 0 14px}
+.banner{border:1px solid var(--line);border-left:4px solid var(--review);background:var(--panel);padding:10px 12px;border-radius:6px;font-size:13.5px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin-top:14px}
+textarea{width:100%;min-height:120px;font:inherit;padding:10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink)}
+button,select,input{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:6px 10px}
+button.primary{background:var(--accent);border-color:var(--accent);color:#fff;cursor:pointer}button:disabled{opacity:.5}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;font-weight:600;border:1.5px solid currentColor}
+.t-flag{color:var(--flag)}.t-review{color:var(--review)}.t-unknown{color:var(--unknown)}.t-clear{color:var(--clear)}.t-invalid{color:var(--muted)}
+mark{background:var(--mark);color:inherit;padding:0 2px;border-radius:3px}
+.src{font-size:13px;color:var(--muted);border-top:1px dashed var(--line);margin-top:8px;padding-top:6px}
+.k{color:var(--muted);font-size:13px}.mono{font-family:ui-monospace,Menlo,monospace;font-size:12px;white-space:pre-wrap;word-break:break-all}
+details summary{cursor:pointer;color:var(--muted)}ol{padding-left:20px}
+</style>
+</head>
+<body>
+<main>
+<h1>招聘公平镜</h1>
+<p class="sub">招聘文本中性别／婚育／照护条件线索的人工复核辅助 · 由 Spark-X2.6-4B 定位线索，规则与人工决定分流</p>
+<div class="banner">原型演示：本工具只做文本分流，<b>不是法律意见</b>，不认定违法。“未见此类风险线索”不表示招聘合法。当前结果仅在开发集上做过探索性检查，<b>尚未完成独立锁定测试</b>。请不要输入真实个人信息。</div>
+
+<div class="card">
+  <div id="mode" class="k">连接中…</div>
+  <textarea id="text" placeholder="粘贴一段合成或已脱敏的招聘文本"></textarea>
+  <div class="row">
+    <button class="primary" id="go">分析</button>
+    <span class="k">或回放已保存的真实运行：</span><select id="replay"></select><button id="goReplay">回放</button>
+    <span id="busy" class="k"></span>
+  </div>
+</div>
+
+<div id="out"></div>
+</main>
+<script>
+const R={explicit_sex:"明确性别限定／优先／劝退",marriage_birth:"婚育状态或计划作为条件／询问",care_condition:"家庭／照护条件（性别关联未建立）",context:"语境暗示，需结合事实复核",exception_missing:"声称例外，缺规定与岗位事实",none:"无"};
+const SL={explicit:"原文明示性别",suggested:"仅语境暗示",unestablished:"性别关联未建立",none:"与性别无关",unknown:"无法确定"};
+const SC={recruitment:"当前招聘",context_only:"引用／新闻／培训材料／历史，非当前招聘条件",training:"培训项目招募，不属于普通招聘",insufficient:"信息不足"};
+const OUT={pending_evidence:"待补充材料",context_corrected:"更正语境误报",job_requirement_supported:"已有材料说明属于岗位要求",concern_supported:"风险线索获补强",legal_review_required:"需法律进一步判断",out_of_scope:"不在范围内"};
+const DEC={accept:"接受",modify:"修改",reject:"拒绝（误报）",pending:"待补事实"};
+const $=s=>document.querySelector(s);let current=null,outcomes=[];
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function highlight(text,quotes){let h=esc(text);for(const q of [...new Set(quotes)].sort((a,b)=>b.length-a.length)){if(q)h=h.split(esc(q)).join("<mark>"+esc(q)+"</mark>")}return h}
+async function api(p,b){const r=await fetch(p,b?{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(b)}:{});const j=await r.json();if(!r.ok)throw new Error(j.error||r.status);return j}
+async function init(){try{const s=await api("/api/status");outcomes=s.outcomes;
+ $("#mode").textContent=s.mode==="live"?(s.engine.provider==="xfyun_maas"?`实时模式 · 讯飞星辰 MaaS 官方 API · 模型 ${s.engine.model} · 云端 revision 未披露 · thinking disabled · 服务端固定采样（非确定性） · ${s.engine.prompt_version} + 后处理 ${s.engine.postprocess_version}`:`实时模式 · 本地 Transformers/MPS · revision ${String(s.engine.revision).slice(0,8)} · thinking off · 贪心解码 · ${s.engine.prompt_version} + 后处理 ${s.engine.postprocess_version}`):"回放模式：模型未加载，只能查看已保存的真实开发集运行记录";
+ $("#go").disabled=s.mode!=="live";$("#replay").innerHTML=s.replay_ids.map(i=>`<option>${i}</option>`).join("");$("#goReplay").disabled=!s.replay_ids.length}catch(e){$("#mode").textContent="服务未连接："+e.message}}
+async function run(body){$("#busy").textContent="分析中（云端通常数秒；本地模式约 20–40 秒）…";$("#go").disabled=$("#goReplay").disabled=true;
+ try{current=await api("/api/analyze",body);render()}catch(e){$("#out").innerHTML=`<div class="card t-flag">失败：${esc(e.message)}</div>`}finally{$("#busy").textContent="";init()}}
+$("#go").onclick=()=>run({text:$("#text").value});$("#goReplay").onclick=()=>run({replay_id:$("#replay").value});
+function render(){const a=current,r=a.record,t=r.triage;
+ let h=`<div class="card"><div class="row" style="margin:0"><span class="pill t-${t}">${esc(r.label)}</span><span class="k">${a.mode==="live"?"实时运行":"回放：已保存的真实运行（开发集）"} · ${a.latency_s??"?"} 秒 · 记录 ${a.analysis_id}</span></div>
+ <p>${highlight(a.input_text,r.risk_quotes||[])}</p>
+ <div class="k">语境：${esc(SC[r.scope]||"—")}　·　是否需人工复核：${r.needs_human_review?"是":"否"}（程序按分流结果推导）　·　法律结论：不判断（not_determined）</div>
+ ${a.provider_error?`<p class="t-flag">模型请求失败：${esc(a.provider_error)}。没有生成任何判断，也不会按 clear 处理。</p>`:""}
+ ${a.mode==="live"&&r.triage==="invalid"?`<div class="row"><button id="retry">重新请求（会再调用一次模型，两次记录都会保存）</button></div>`:""}
+ ${a.mode==="live"?`<div class="k">实际响应模型：${esc(a.response_model??"—")} · 用量：${esc(JSON.stringify(a.usage??{}))}</div>`:""}
+ ${a.model_repairs?.length?`<p class="k">程序修复（已记录，原始输出保留）：${a.model_repairs.map(x=>esc(x.from+" → "+x.to)).join("，")}</p>`:""}
+ ${r.model_violations?.length?`<p class="t-flag">模型输出未通过校验：${esc(r.model_violations.join("，"))}。已转入人工处理，不按 clear 处理。</p>`:""}
+ ${r.model_warnings?.length?`<p class="k">提醒：${esc(r.model_warnings.join("，"))}</p>`:""}
+ ${r.context_quotes?.length?`<p class="k">语境片段（不作为风险线索）：${r.context_quotes.map(esc).join("；")}</p>`:""}
+ ${r.rationale?`<p><span class="k">模型说明：</span>${esc(r.rationale)}</p>`:""}
+ ${r.missing_facts?`<p><span class="k">待补充事实：</span>${esc(r.missing_facts)}</p>`:""}</div>`;
+ (r.findings||[]).forEach((f,i)=>{h+=`<div class="card"><div><span class="pill t-${f.triage}">${f.triage}</span> <b>${esc(R[f.reason])}</b></div>
+  <p>原文片段：<mark>${esc(f.quote)}</mark></p><div class="k">性别关联：${esc(SL[f.sex_link])}　·　涉及照护条件：${f.care_condition?"是":"否"}</div>
+  ${f.scope_note?`<p class="t-review">${esc(f.scope_note)}（模型原判 flag，范围检查降为 review）</p>`:""}
+  ${f.reason==="care_condition"?`<p class="k">这是岗位条件，需结合实际职责核实；单凭这段文字，看不出它与应聘者的性别或婚育有关。</p>`:""}
+  <div class="row"><label>人工判断：<select data-f="${i}"><option value="accept">接受</option><option value="modify">修改（在备注说明）</option><option value="reject">拒绝（误报）</option><option value="pending">待补事实</option></select></label></div></div>`});
+ if(a.sop_care_questions?.length)h+=`<div class="card"><b>向招聘发布方定向核查（核查问题）</b>${new URLSearchParams(location.search).get("hide")==="sources"?`<p class="k">共 ${a.sop_care_questions.length} 个问题。问题原文来自法学联合研究者的复核流程研究，公开授权确认前，本截图不显示。</p>`:`<ol>${a.sop_care_questions.map(q=>`<li>${esc(q)}</li>`).join("")}</ol>`}<div class="k">不要求求职者提供婚育或家庭信息。</div></div>`;
+ const hideSrc=new URLSearchParams(location.search).get("hide")==="sources";
+ if(r.legal_sources?.length&&hideSrc)h+=`<div class="card"><b>相关法源（白名单）</b><p class="k">法源编号：${r.legal_sources.map(s=>esc(s.id)).join("、")}。白名单的注释内容来自法学联合研究者的研究，公开授权确认前，本截图不显示。</p></div>`;
+ else if(r.legal_sources?.length)h+=`<div class="card"><b>相关法源（白名单，适用性待法律审阅者确认）</b>${r.legal_sources.map(s=>`<div class="src"><b>${s.id}</b> ${esc(s.document_level_date)}<br>${esc(s.articles_and_use)}<br>适用边界：${esc(s.limits)}<br>${s.urls.map(u=>`<a href="${esc(u)}" target="_blank" rel="noopener">${esc(u)}</a>`).join(" ")}</div>`).join("")}</div>`;
+ h+=`<div class="card"><b>人工复核记录</b><div class="row"><label>审核人 <input id="rv" placeholder="真实姓名或角色"></label>
+  <label>人工分流 <select id="ht"><option value="">沿用</option><option>flag</option><option>review</option><option>clear</option><option>unknown</option></select></label>
+  <label>处理状态 <select id="ho">${outcomes.map(o=>`<option value="${o}">${OUT[o]}</option>`).join("")}</select></label></div>
+  <textarea id="notes" placeholder="依据、补充事实来源（发布方陈述请注明 self_reported）、保留分歧"></textarea>
+  <div class="row"><button class="primary" id="save">保存人工记录</button><a id="exp" href="/api/export/${a.analysis_id}"><button>导出审核记录 JSON</button></a><span id="saved" class="k"></span></div>
+  ${a.human_reviews.length?`<p class="k">已保存 ${a.human_reviews.length} 条人工记录（按时间顺序，只追加不删除）：</p>${a.human_reviews.map(v=>`<div class="src"${v.voided?' style="text-decoration:line-through;opacity:.6"':""}>${v.voided?`<span style="text-decoration:none">【已作废：${esc(v.voided)}】</span><br>`:""}<b>${esc(v.reviewed_at.slice(0,19).replace("T"," "))} UTC · ${esc(v.reviewer)}</b><br>逐条判断：${(v.finding_decisions||[]).map(d=>esc(`「${d.quote}」→ ${DEC[d.decision]||d.decision}`)).join("；")||"—"}<br>人工分流：${esc(v.human_triage||"沿用模型分流")} · 处理状态：${esc(OUT[v.human_outcome]||v.human_outcome)} · 法律结论：not_determined<br>备注：${esc(v.notes||"—")}</div>`).join("")}`:""}</div>
+  <div class="card"><details><summary>模型原始输出（未修改）</summary><div class="mono">${esc(a.raw_model_output)}</div></details></div>`;
+ $("#out").innerHTML=h;
+ if($("#retry"))$("#retry").onclick=()=>run({text:a.input_text,retry_of:a.analysis_id});
+ $("#save").onclick=async()=>{const fd=[...document.querySelectorAll("select[data-f]")].map(s=>({finding_index:+s.dataset.f,quote:r.findings[+s.dataset.f].quote,decision:s.value}));
+  try{current=await api("/api/review",{analysis_id:a.analysis_id,reviewer:$("#rv").value,human_triage:$("#ht").value||null,human_outcome:$("#ho").value,notes:$("#notes").value,finding_decisions:fd});render();$("#saved").textContent="已保存"}catch(e){$("#saved").textContent="保存失败："+e.message}}}
+init().then(async()=>{const v=new URLSearchParams(location.search).get("view");if(v){try{current=await api("/api/export/"+encodeURIComponent(v));render()}catch(e){$("#out").innerHTML=`<div class="card t-flag">记录不存在：${esc(e.message)}</div>`}}});
+</script>
+</body>
+</html>

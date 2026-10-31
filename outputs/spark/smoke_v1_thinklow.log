@@ -1,0 +1,20 @@
+
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]
+Loading checkpoint shards: 100%|██████████| 5/5 [00:00<00:00, 75.77it/s]
+loaded in 8.08s on mps
+The following generation flags are not valid and may be ignored: ['top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+S01 201.377s tok=899 status=flag viol=[]
+S02 318.714s tok=1536 status=None viol=['parse:no_json_object']
+S03 189.119s tok=830 status=flag viol=[]
+S04 134.948s tok=678 status=flag viol=[]
+S05 112.635s tok=504 status=clear viol=[]
+S06 128.682s tok=620 status=clear viol=[]
+S07 342.781s tok=1536 status=None viol=['parse:no_json_object']
+S08 280.769s tok=896 status=flag viol=[]
+S09 45.016s tok=309 status=clear viol=[]
+S10 166.801s tok=877 status=flag viol=[]
+S11 110.103s tok=643 status=flag viol=[]
+S12 147.913s tok=908 status=review viol=[]
+S13 183.362s tok=1101 status=flag viol=[]
+S14 279.561s tok=1536 status=flag|review|clear viol=['id_mismatch', 'bad_status', 'bad_issue_type', 'evidence_not_substring', 'reason_legal_conclusion', 'parse:trailing_text']
+{"n": 14, "mean": 188.699, "median": 183.362, "min": 45.016, "max": 342.781, "total": 2641.782}
