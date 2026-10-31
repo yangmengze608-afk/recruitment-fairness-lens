@@ -46,7 +46,7 @@ details summary{cursor:pointer;color:var(--muted)}ol{padding-left:20px}
 const R={explicit_sex:"明确性别限定／优先／劝退",marriage_birth:"婚育状态或计划作为条件／询问",care_condition:"家庭／照护条件（性别关联未建立）",context:"语境暗示，需结合事实复核",exception_missing:"声称例外，缺规定与岗位事实",none:"无"};
 const SL={explicit:"原文明示性别",suggested:"仅语境暗示",unestablished:"性别关联未建立",none:"与性别无关",unknown:"无法确定"};
 const SC={recruitment:"当前招聘",context_only:"引用／新闻／培训材料／历史，非当前招聘条件",training:"培训项目招募，不属于普通招聘",insufficient:"信息不足"};
-const OUT={pending_evidence:"待补充材料",context_corrected:"更正语境误报",job_requirement_supported:"已有材料说明属于岗位要求",concern_supported:"风险线索获补强",legal_review_required:"需法律进一步判断",out_of_scope:"不在范围内"};
+const OUT={pending_evidence:"待补充材料",context_corrected:"更正语境误报",job_requirement_supported:"已有材料支持岗位能力解释",concern_supported:"风险线索获补强",legal_review_required:"需法律进一步判断",out_of_scope:"不在范围内"};
 const DEC={accept:"接受",modify:"修改",reject:"拒绝（误报）",pending:"待补事实"};
 const $=s=>document.querySelector(s);let current=null,outcomes=[];
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -76,7 +76,7 @@ function render(){const a=current,r=a.record,t=r.triage;
   ${f.scope_note?`<p class="t-review">${esc(f.scope_note)}（模型原判 flag，范围检查降为 review）</p>`:""}
   ${f.reason==="care_condition"?`<p class="k">这是岗位条件，需结合实际职责核实；单凭这段文字，看不出它与应聘者的性别或婚育有关。</p>`:""}
   <div class="row"><label>人工判断：<select data-f="${i}"><option value="accept">接受</option><option value="modify">修改（在备注说明）</option><option value="reject">拒绝（误报）</option><option value="pending">待补事实</option></select></label></div></div>`});
- if(a.sop_care_questions?.length)h+=`<div class="card"><b>向招聘发布方定向核查（核查问题）</b>${new URLSearchParams(location.search).get("hide")==="sources"?`<p class="k">共 ${a.sop_care_questions.length} 个问题。问题原文来自法学联合研究者的复核流程研究，公开授权确认前，本截图不显示。</p>`:`<ol>${a.sop_care_questions.map(q=>`<li>${esc(q)}</li>`).join("")}</ol>`}<div class="k">不要求求职者提供婚育或家庭信息。</div></div>`;
+ if(a.sop_care_questions?.length)h+=`<div class="card"><b>向招聘发布方定向核查（来自法学交接包 SOP）</b>${new URLSearchParams(location.search).get("hide")==="sources"?`<p class="k">共 ${a.sop_care_questions.length} 个问题。问题原文来自法学联合研究者的复核流程研究，公开授权确认前，本截图不显示。</p>`:`<ol>${a.sop_care_questions.map(q=>`<li>${esc(q)}</li>`).join("")}</ol>`}<div class="k">不要求求职者提供婚育或家庭信息。</div></div>`;
  const hideSrc=new URLSearchParams(location.search).get("hide")==="sources";
  if(r.legal_sources?.length&&hideSrc)h+=`<div class="card"><b>相关法源（白名单）</b><p class="k">法源编号：${r.legal_sources.map(s=>esc(s.id)).join("、")}。白名单的注释内容来自法学联合研究者的研究，公开授权确认前，本截图不显示。</p></div>`;
  else if(r.legal_sources?.length)h+=`<div class="card"><b>相关法源（白名单，适用性待法律审阅者确认）</b>${r.legal_sources.map(s=>`<div class="src"><b>${s.id}</b> ${esc(s.document_level_date)}<br>${esc(s.articles_and_use)}<br>适用边界：${esc(s.limits)}<br>${s.urls.map(u=>`<a href="${esc(u)}" target="_blank" rel="noopener">${esc(u)}</a>`).join(" ")}</div>`).join("")}</div>`;

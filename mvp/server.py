@@ -25,10 +25,10 @@ from rfl.contract_v2 import load_whitelist  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 LOGS = HERE / "logs"
-SOP_CARE_QUESTIONS = [  # 公开版：自写问题（原研究版 SOP 问题待授权公开）
-    "请说明该岗位实际需要的工作时段、出差和驻场安排，以及统一的评估标准。",
-    "对能够满足上述工作安排、但承担照护责任的应聘者，是否采用同样的标准？（无需提供任何应聘者的个人或家庭信息）",
-    "这一条件是否影响录用、优先顺序或面试资格？是否对不同性别同样执行？",
+SOP_CARE_QUESTIONS = [  # 逐字摘自 HUMAN_REVIEW_SOP.md「家庭／育儿条件的定向核查卡」
+    "该岗位具体需要哪些出勤时段、出差频率或持续驻场安排？请提供实际职责和统一评估标准，而不是泛称工作忙。",
+    "一名有照护责任但能满足上述安排的应聘者，是否与其他人按相同标准考虑？请说明筛选规则；不提供求职者姓名、孩子情况或家庭成员资料。",
+    "“没有家庭／育儿负担”是否直接决定不予录用、优先级或面试资格？是否只对某一性别执行？如有已有审核材料，请仅提供必要的脱敏摘录。",
 ]
 HUMAN_OUTCOMES = ["pending_evidence", "context_corrected", "job_requirement_supported", "concern_supported",
                   "legal_review_required", "out_of_scope"]

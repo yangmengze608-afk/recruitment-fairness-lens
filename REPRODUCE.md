@@ -40,7 +40,7 @@ python3 mvp/server.py --replay outputs_v3/maas_v2.1_plus_pp2.3_dev86/records.jso
 - 哈希：`docs_v3/FREEZE_v2.1_pp2.3.json`。只涉及界面或安全、不影响推理的后续改动，登记在 `docs_v4/FREEZE_ADDENDA.json`。
 
 ## 6. 开发集评估（探索性，不是正式成绩；**公开仓库无法完整运行**）
-> 评估需要 `data_v2/dev_labels.jsonl`（法学联合研究者授权下的 AI 辅助研究标签），这个文件尚未授权公开，所以公开仓库里没有。下面的第一条命令（推理）可以运行，第二条（评估）需要先获得标签文件。
+> 评估需要 `data_v2/dev_labels.jsonl`（AI 辅助研究标签），这个文件尚未公开，所以公开仓库里没有。下面的第一条命令（推理）可以运行，第二条（评估）需要先获得标签文件。
 
 ```bash
 python3 scripts/run_provider.py --provider xfyun_maas --prompt-module rfl.prompt_v2_1 --postprocess v2.3 --input data_v2/dev_inputs.jsonl --out-dir outputs_v3/<new_run>
@@ -55,7 +55,7 @@ python3 scripts/verify_seal.py          # 先确认预测已封存且没有改�
 python3 scripts/evaluate_v2.py ... --label-source human_frozen
 ```
 协议见 `docs_v2/LOCKED_TEST_PROTOCOL.md`。
-> 公开仓库中的 `rfl/prompt_v2_1.py` 是公开版，替换了一个来自未授权样例的 15 字示例。因此冻结哈希校验不会通过，锁定测试脚本会拒绝运行；正式锁定测试在内部冻结环境中执行。
+> 公开仓库中的 `rfl/prompt_v2_1.py` 与冻结版逐字节一致，冻结哈希校验可以通过；正式锁定测试材料不在公开仓库中。
 
 ## 8. 文件地图
 - `rfl/`：契约、Prompt、Provider、后处理

@@ -1,5 +1,189 @@
 {
- "source_file": "(withheld)",
- "note": "法源白名单的注释来自法学联合研究者，公开授权前以空占位发布；程序仍会显示法源编号。",
- "sources": {}
+ "source_file": "data_v2/legal_pack/LEGAL_SOURCE_INDEX.md",
+ "verified_as_of": "2026-10-28",
+ "note": "逐字摘自法学交接包法源索引；程序与模型均不得新增法条。具体条款是否适用于个案须由法律审阅者确认。",
+ "sources": {
+  "S01": {
+   "id": "S01",
+   "document_level_date": "妇女权益保障法；法律；2022-10-30修订，2023-01-01施行",
+   "articles_and_use": "第2、42、43、44、49条；女性就业、婚育条件、妊娠测试与扶助措施",
+   "limits": "第43条第1项明确针对限男/男性优先，不能反向直接用于“限女”；保留国家另有规定及个人基本信息的文本限定",
+   "urls": [
+    "https://zc.gjzwfw.gov.cn/art/2024/1/4/art_14_71930.html"
+   ]
+  },
+  "S02": {
+   "id": "S02",
+   "document_level_date": "就业促进法；法律；2008-01-01施行，2015-04-24修正",
+   "articles_and_use": "第3、26、27、62条；一般平等就业与女性特殊保护、诉权",
+   "limits": "不意味着所有差别要求均属歧视；区分一般保护与保护妇女的具体条款",
+   "urls": [
+    "https://scjg.hubei.gov.cn/qsgtgshggfwzq/flfg/1673885551557668866.html"
+   ]
+  },
+  "S03": {
+   "id": "S03",
+   "document_level_date": "人力资源市场暂行条例；行政法规；2018-10-01施行",
+   "articles_and_use": "第2、24、26条；招聘信息不得含性别等歧视性内容、委托招聘审核",
+   "limits": "适用人力资源市场活动；特殊招聘另有规定的从其规定",
+   "urls": [
+    "https://www.samr.gov.cn/zw/zfxxgk/fdzdgknr/bgt/art/2023/art_d0f9fd2e7dcb4286a55c87b188f38bbc.html"
+   ]
+  },
+  "S04": {
+   "id": "S04",
+   "document_level_date": "关于规范招聘信息促进平等就业有关事项的通知；人社部办公厅部门文件，不是法律或行政法规",
+   "articles_and_use": "第1、2项；不得限定性别或性别优先，不设与岗位职责适配性无关的限制；发布审核",
+   "limits": "已核对政府全文；页面为2024-10-30转载，未展示完整发文日期、文号，不能据此编造施行日；处罚须回到有权设定责任的依据",
+   "urls": [
+    "https://rsj.changzhi.gov.cn/zwxx/zcfg/202410/t20241030_2977113.html"
+   ]
+  },
+  "S05": {
+   "id": "S05",
+   "document_level_date": "女职工劳动保护特别规定；行政法规；2012-04-28公布施行",
+   "articles_and_use": "第4、6、9条及附录；法定禁忌劳动和特定期间保护",
+   "limits": "普通夜班/搬运不当然是全体女性禁忌；孕期哺乳期限制不能扩张为所有女性不得录用",
+   "urls": [
+    "https://xzfg.moj.gov.cn/mobile/law/detail?LawID=343"
+   ]
+  },
+  "S06": {
+   "id": "S06",
+   "document_level_date": "就业服务与就业管理规定；部门规章；2008-01-01施行；核查文本含2022-01-07第四次修订",
+   "articles_and_use": "第4、7、12、13、16、20条；平等就业、岗位相关信息、保密和广告规范",
+   "limits": "不使用已被修改的2018版作为现行完整版本；引用限相关条款",
+   "urls": [
+    "https://rst.fj.gov.cn/zw/zxwj/rsbwj/202505/t20250514_6913783.htm"
+   ]
+  },
+  "S07": {
+   "id": "S07",
+   "document_level_date": "劳动合同法；法律；2008-01-01施行，2012修正部分2013-07-01施行",
+   "articles_and_use": "第8条；了解与劳动合同直接相关的基本情况",
+   "limits": "不是广泛打听婚育家庭的授权；不能绕过特别禁止规定",
+   "urls": [
+    "https://www.samr.gov.cn/zw/zfxxgk/fdzdgknr/bgt/art/2023/art_0abfdd261c03417b949df19d869add8d.html"
+   ]
+  },
+  "S08": {
+   "id": "S08",
+   "document_level_date": "民法典；法律；2021-01-01施行",
+   "articles_and_use": "第1058条；夫妻共同抚养、教育、保护义务",
+   "limits": "支持纠正“育儿只属于女性”的前提，不直接给某招聘广告定责",
+   "urls": [
+    "https://www.cac.gov.cn/2020-06/01/c_15925617772683194.htm"
+   ]
+  },
+  "S09": {
+   "id": "S09",
+   "document_level_date": "个人信息保护法；法律；2021-11-01施行",
+   "articles_and_use": "第5、6、13条；正当必要、最小范围及处理基础",
+   "limits": "人审不能为检测歧视而新增不必要的家庭调查；原型不接收个人简历",
+   "urls": [
+    "https://sdca.miit.gov.cn/zwgk/fgbz/art/2026/art_3e2ad39014b743d58bab7a6815640aee.html"
+   ]
+  },
+  "S10": {
+   "id": "S10",
+   "document_level_date": "指导案例185号；最高法2022-07-04发布，网页2022-07-06",
+   "articles_and_use": "工作内在要求、无正当理由差别对待；对应S02第3、26条",
+   "limits": "本案事实是地域歧视，不是照护责任案，不能称为“家庭负担已判违法”的先例",
+   "urls": [
+    "https://www.court.gov.cn/fabu/xiangqing/364691.html"
+   ]
+  },
+  "S11": {
+   "id": "S11",
+   "document_level_date": "当涂县妇女平等就业行政公益诉讼案；两高第三批典型案例，2025-12-22发布",
+   "articles_and_use": "招聘限男需核查实际工种；督促平台审核与整改",
+   "limits": "2024-07整改后裁定终结诉讼，不是判赔给求职者；不能依职位名称自动判断禁忌",
+   "urls": [
+    "https://www.court.gov.cn/zixun/xiangqing/484661.html"
+   ]
+  },
+  "S12": {
+   "id": "S12",
+   "document_level_date": "上海法务招聘性别筛选案；上海高院官网2025-04-30案例报道",
+   "articles_and_use": "公告不写性别不代表实际筛选无歧视",
+   "limits": "网页未提供案号，不编造；案件有拒绝女性的补充沟通证据",
+   "urls": [
+    "https://www.hshfy.sh.cn/shfy/web/xxnr.jsp?pa=aaWQ9MTAyMDQ0NjIwMiZ4aD0xJmxtZG09bG01MTkPdcssz&zd=xwzx"
+   ]
+  },
+  "S13": {
+   "id": "S13",
+   "document_level_date": "昆山法院、人社局2024年度典型案例；2025-04-30发布，政务号转载",
+   "articles_and_use": "案例四：男性育儿假同样受保护",
+   "limits": "地方假期与劳动关系存续争议，不能套用全国统一天数，也不是招聘歧视判例",
+   "urls": [
+    "https://www.thepaper.cn/newsDetail_forward_30755213"
+   ]
+  },
+  "S14": {
+   "id": "S14",
+   "document_level_date": "人社部对全国政协第五次会议第01298号提案答复；政策答复，网页路径2023",
+   "articles_and_use": "承认间接就业歧视隐蔽、判定困难",
+   "limits": "搜索可见段落，正文打开为空；内容仍表述推动妇保法修改，具有历史性，不能作为2026现状完整结论或新法律",
+   "urls": [
+    "https://www.mohrss.gov.cn/xxgk2020/fdzdgknr/zhgl/jytabl/tadf/202309/t20230921_506719.html"
+   ]
+  },
+  "S15": {
+   "id": "S15",
+   "document_level_date": "第三次全国时间利用调查公报第二、三号；国家统计局，2024-10-31",
+   "articles_and_use": "男女无酬劳动参与时间与参与率；宏观背景",
+   "limits": "“参与者时间”不是全体平均，也不是仅育儿时间；不能外推某广告受影响比例或个人能力",
+   "urls": [
+    "https://www.stats.gov.cn/zt_18555/zthd/lhfw/2025/2025_qgsjlydc/202501/t20250127_1958534.html",
+    "https://www.stats.gov.cn/xxgk/sjfb/zxfb2020/202410/t20241031_1957216.html"
+   ]
+  },
+  "S16": {
+   "id": "S16",
+   "document_level_date": "ILO《企业、歧视与平等问答》；国际组织说明，非中国国内法",
+   "articles_and_use": "中性条件可能有群体不利影响；家庭责任涉及男女",
+   "limits": "只作分析概念，不能直接当作国内处罚或裁判依据",
+   "urls": [
+    "https://www.ilo.org/zh-hans/企业、歧视与平等问答"
+   ]
+  },
+  "S17": {
+   "id": "S17",
+   "document_level_date": "ILO C156家庭责任工人公约及NORMLEX批准状态",
+   "articles_and_use": "说明家庭责任议题有独立保护视角",
+   "limits": "NORMLEX搜索结果将C156列为中国未批准公约；正文访问重定向失败。不把本公约作为对中国已生效的条约或直接国内依据",
+   "urls": [
+    "https://www.ilo.org/dyn/normlex/en/f?p=1000:12100:::NO:12100:P12100_INSTRUMENT_ID:312301",
+    "https://www.ilo.org/dyn/normlex/en/f?p=NORMLEXPUB:11210:0::NO::P11210_COUNTRY_ID:103404"
+   ]
+  },
+  "S18": {
+   "id": "S18",
+   "document_level_date": "胡某艳诉陈某高离婚纠纷典型案例；最高法2022-08-10发布",
+   "articles_and_use": "男方对家庭较多付出获得补偿，构成反刻板印象例证",
+   "limits": "婚姻家事案，不是劳动招聘责任依据",
+   "urls": [
+    "https://www.court.gov.cn/zixun/xiangqing/368621.html"
+   ]
+  },
+  "S19": {
+   "id": "S19",
+   "document_level_date": "台山市招聘信息提示函；地方行政提示；落款2025-12-31、发布2026-01-05",
+   "articles_and_use": "限男、男性优先、已婚已育的当地实践线索",
+   "limits": "不扩张成全国发生率，不把提示函当新增法律",
+   "urls": [
+    "https://www.cnts.gov.cn/zfgzbm/srlzyhshbzj/zwgk/zfxxgkml/tzgg/content/post_3421551.html"
+   ]
+  },
+  "S20": {
+   "id": "S20",
+   "document_level_date": "官方赛事Issue；非法律依据；本轮核对",
+   "articles_and_use": "模型、演示、贡献与双步骤提交",
+   "limits": "研究成果不能替代真实运行结果",
+   "urls": [
+    "https://github.com/XHToken/Spark-X2.6/issues/16"
+   ]
+  }
+ }
 }

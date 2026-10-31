@@ -1,22 +1,22 @@
 {
- "repo": "XHToken/Spark-X2.6-4B",
- "revision": "d1b5f26071101c27fcd07728e7a7770e428281f4",
- "hub_lastModified": "2026-10-27T12:55:34Z",
- "license": "apache-2.0",
- "gated": false,
- "download_tool": "huggingface_hub hf CLI 1.15.0, unauthenticated",
- "sha256": {
-  "model-00001-of-00005.safetensors": "9ba8a59a47ce4197d5c749c76c04272e0b4b880747b31b9167a82d8757e90665",
-  "model-00002-of-00005.safetensors": "f0cad973670dda858a177d62a1845f9ec3c3e2a7a1cdbd34f98ab6789fbd452d",
-  "model-00003-of-00005.safetensors": "479c8aecd24d1d4c6c2243541b36acc6a84df4c0706a7ccaacda748eac46b8e8",
-  "model-00004-of-00005.safetensors": "766cd843c58676b0be533b465368a76f574f36bea074f4d16f7e37d910423d08",
-  "model-00005-of-00005.safetensors": "e2cb22cc6aa1dccdc30042170841058a1a8cffb7e9eb57356c86ae14fc4ca0e3",
-  "modeling_spark.py": "9cf0d1ad2b54b9f7088792779ddd8b5cb4d4fe63bfea054da7f2dd16362bcaf4",
-  "configuration_spark.py": "02218597240490f490659b184052db940b08163ff9c3af7b7e59323f6f963722",
-  "config.json": "767161ece8ed2891e44345afdf98d29c1cacb964116cb6db7d20dc1c757490ad",
-  "tokenizer.json": "710cce15cf3565674c499f9413997c6e8101f2bdd96245cff8f0311fb501248c",
-  "chat_template.jinja": "480576bd2ef80726a0dba6406d72ca37f4f4f9ca747c7f1c8d159dbdf40f6929"
- },
- "safetensors_sha256_verified_against_hub_lfs_oid": true,
- "recorded_utc": "2026-10-28T14:07:15.892619Z"
+  "repo": "XHToken/Spark-X2.6-4B",
+  "revision": "d1b5f26071101c27fcd07728e7a7770e428281f4",
+  "hub_lastModified": "2026-10-27T12:55:34Z",
+  "license": "apache-2.0",
+  "gated": false,
+  "download_tool": "huggingface_hub hf CLI 1.15.0, unauthenticated",
+  "sha256": {
+    "model-00001-of-00005.safetensors": "9ba8a59a47ce4197d5c749c76c04272e0b4b880747b31b9167a82d8757e90665",
+    "model-00002-of-00005.safetensors": "f0cad973670dda858a177d62a1845f9ec3c3e2a7a1cdbd34f98ab6789fbd452d",
+    "model-00003-of-00005.safetensors": "479c8aecd24d1d4c6c2243541b36acc6a84df4c0706a7ccaacda748eac46b8e8",
+    "model-00004-of-00005.safetensors": "766cd843c58676b0be533b465368a76f574f36bea074f4d16f7e37d910423d08",
+    "model-00005-of-00005.safetensors": "e2cb22cc6aa1dccdc30042170841058a1a8cffb7e9eb57356c86ae14fc4ca0e3",
+    "modeling_spark.py": "9cf0d1ad2b54b9f7088792779ddd8b5cb4d4fe63bfea054da7f2dd16362bcaf4",
+    "configuration_spark.py": "02218597240490f490659b184052db940b08163ff9c3af7b7e59323f6f963722",
+    "config.json": "767161ece8ed2891e44345afdf98d29c1cacb964116cb6db7d20dc1c757490ad",
+    "tokenizer.json": "710cce15cf3565674c499f9413997c6e8101f2bdd96245cff8f0311fb501248c",
+    "chat_template.jinja": "480576bd2ef80726a0dba6406d72ca37f4f4f9ca747c7f1c8d159dbdf40f6929"
+  },
+  "safetensors_sha256_verified_against_hub_lfs_oid": true,
+  "recorded_utc": "2026-10-28T14:07:15.892619Z"
 }
