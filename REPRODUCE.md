@@ -7,7 +7,7 @@
 - 本地模型模式另外需要：`transformers==4.57.1`（模型官方 README 要求的版本）和 `torch`。参考配置：Apple M3 16 GB、MPS、bf16，见 `requirements.txt`。
 
 ```bash
-python3 -m unittest discover -s tests          # 34 个测试，只需要标准库（Python 3.12+）
+python3 -m unittest discover -s tests          # 39 个测试，只需要标准库（Python 3.12+）
 ```
 
 ## 2. 云端模式（讯飞星辰 MaaS 官方 API，Demo 使用的方式）

@@ -51,7 +51,7 @@
 ## 5. 安装与运行
 完整说明见 [REPRODUCE.md](REPRODUCE.md)。
 ```bash
-python3 -m unittest discover -s tests        # 34 个工程测试，只需 Python 3.12+ 标准库
+python3 -m unittest discover -s tests        # 39 个工程测试，只需 Python 3.12+ 标准库
 ```
 **A. 官方 MaaS 实时推理**（需要自己的讯飞 MaaS API Key）
 ```bash
