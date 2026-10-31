@@ -48,11 +48,11 @@ const SL={explicit:"原文明示性别",suggested:"仅语境暗示",unestablishe
 const SC={recruitment:"当前招聘",context_only:"引用／新闻／培训材料／历史，非当前招聘条件",training:"培训项目招募，不属于普通招聘",insufficient:"信息不足"};
 const OUT={pending_evidence:"待补充材料",context_corrected:"更正语境误报",job_requirement_supported:"已有材料支持岗位能力解释",concern_supported:"风险线索获补强",legal_review_required:"需法律进一步判断",out_of_scope:"不在范围内"};
 const DEC={accept:"接受",modify:"修改",reject:"拒绝（误报）",pending:"待补事实"};
-const $=s=>document.querySelector(s);let current=null,outcomes=[];
+const $=s=>document.querySelector(s);let current=null,outcomes=[],rules={};
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 function highlight(text,quotes){let h=esc(text);for(const q of [...new Set(quotes)].sort((a,b)=>b.length-a.length)){if(q)h=h.split(esc(q)).join("<mark>"+esc(q)+"</mark>")}return h}
 async function api(p,b){const r=await fetch(p,b?{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(b)}:{});const j=await r.json();if(!r.ok)throw new Error(j.error||r.status);return j}
-async function init(){try{const s=await api("/api/status");outcomes=s.outcomes;
+async function init(){try{const s=await api("/api/status");outcomes=s.outcomes;rules=s.outcome_rules||{};
  $("#mode").textContent=s.mode==="live"?(s.engine.provider==="xfyun_maas"?`实时模式 · 讯飞星辰 MaaS 官方 API · 模型 ${s.engine.model} · 云端 revision 未披露 · thinking disabled · 服务端固定采样（非确定性） · ${s.engine.prompt_version} + 后处理 ${s.engine.postprocess_version}`:`实时模式 · 本地 Transformers/MPS · revision ${String(s.engine.revision).slice(0,8)} · thinking off · 贪心解码 · ${s.engine.prompt_version} + 后处理 ${s.engine.postprocess_version}`):"回放模式：模型未加载，只能查看已保存的真实开发集运行记录";
  $("#go").disabled=s.mode!=="live";$("#replay").innerHTML=s.replay_ids.map(i=>`<option>${i}</option>`).join("");$("#goReplay").disabled=!s.replay_ids.length}catch(e){$("#mode").textContent="服务未连接："+e.message}}
 async function run(body){$("#busy").textContent="分析中（云端通常数秒；本地模式约 20–40 秒）…";$("#go").disabled=$("#goReplay").disabled=true;
@@ -71,26 +71,50 @@ function render(){const a=current,r=a.record,t=r.triage;
  ${r.context_quotes?.length?`<p class="k">语境片段（不作为风险线索）：${r.context_quotes.map(esc).join("；")}</p>`:""}
  ${r.rationale?`<p><span class="k">模型说明：</span>${esc(r.rationale)}</p>`:""}
  ${r.missing_facts?`<p><span class="k">待补充事实：</span>${esc(r.missing_facts)}</p>`:""}</div>`;
- (r.findings||[]).forEach((f,i)=>{h+=`<div class="card"><div><span class="pill t-${f.triage}">${f.triage}</span> <b>${esc(R[f.reason])}</b></div>
+ const cards=(a.review_cards&&a.review_cards.cards)||[];
+ if(a.review_cards)h+=`<div class="card"><b>复核任务</b>（${esc(a.review_cards.version)}）<p class="k">${esc(a.review_cards.document_lane_task)}</p><p class="k">职责分工：模型只负责提取线索；招聘审核人员联系发布方、核查岗位材料；规范适用有争议的，交法律审阅者。求职者没有调查企业或交代家庭情况的义务。拿不到材料时，可以保持待核。</p></div>`;
+ (r.findings||[]).forEach((f,i)=>{const c=cards[i];h+=`<div class="card"><div><span class="pill t-${f.triage}">${f.triage}</span> <b>${esc(R[f.reason])}</b>${c?` · 复核通道：${esc(c.title)}`:""}</div>
   <p>原文片段：<mark>${esc(f.quote)}</mark></p><div class="k">性别关联：${esc(SL[f.sex_link])}　·　涉及照护条件：${f.care_condition?"是":"否"}</div>
   ${f.scope_note?`<p class="t-review">${esc(f.scope_note)}（模型原判 flag，范围检查降为 review）</p>`:""}
   ${f.reason==="care_condition"?`<p class="k">这是岗位条件，需结合实际职责核实；单凭这段文字，看不出它与应聘者的性别或婚育有关。</p>`:""}
-  <div class="row"><label>人工判断：<select data-f="${i}"><option value="accept">接受</option><option value="modify">修改（在备注说明）</option><option value="reject">拒绝（误报）</option><option value="pending">待补事实</option></select></label></div></div>`});
- if(a.sop_care_questions?.length)h+=`<div class="card"><b>向招聘发布方定向核查（来自法学交接包 SOP）</b>${new URLSearchParams(location.search).get("hide")==="sources"?`<p class="k">共 ${a.sop_care_questions.length} 个问题。问题原文来自法学联合研究者的复核流程研究，公开授权确认前，本截图不显示。</p>`:`<ol>${a.sop_care_questions.map(q=>`<li>${esc(q)}</li>`).join("")}</ol>`}<div class="k">不要求求职者提供婚育或家庭信息。</div></div>`;
+  ${c?`<p><span class="k">为什么进入复核：</span>${esc(c.queue_reason)}<br><span class="k">本条任务：</span>${esc(c.lane_task)}</p>
+  <p class="k">定向问题（最多 3 个）：</p><ol>${c.questions.map(q=>`<li>${esc(q)}</li>`).join("")}</ol>
+  <p><span class="k">需要的岗位材料：</span>${c.materials.map(esc).join("；")}<br><span class="k">负责核查：</span>${esc(c.role)}</p>
+  <div class="src"><b>依据及版本（复核参考）</b><br>${c.basis.map(esc).join("<br>")}<br>${esc(c.basis_note)}</div>
+  <p><span class="k">可直接使用的文案建议（模板）：</span>${esc(c.suggestion_template)}<br><span class="k">${esc(c.suggestion_note)}</span></p>`:""}
+  <div class="row"><label>人工判断：<select data-f="${i}"><option value="accept">接受</option><option value="modify">修改（在理由中说明）</option><option value="reject">拒绝（误报）</option><option value="pending">待补事实</option></select></label></div></div>`});
+ if(a.sop_care_questions?.length&&!a.review_cards)h+=`<div class="card"><b>向招聘发布方定向核查（来自法学交接包 SOP）</b><ol>${a.sop_care_questions.map(q=>`<li>${esc(q)}</li>`).join("")}</ol><div class="k">不要求求职者提供婚育或家庭信息。</div></div>`;
  const hideSrc=new URLSearchParams(location.search).get("hide")==="sources";
  if(r.legal_sources?.length&&hideSrc)h+=`<div class="card"><b>相关法源（白名单）</b><p class="k">法源编号：${r.legal_sources.map(s=>esc(s.id)).join("、")}。白名单的注释内容来自法学联合研究者的研究，公开授权确认前，本截图不显示。</p></div>`;
  else if(r.legal_sources?.length)h+=`<div class="card"><b>相关法源（白名单，适用性待法律审阅者确认）</b>${r.legal_sources.map(s=>`<div class="src"><b>${s.id}</b> ${esc(s.document_level_date)}<br>${esc(s.articles_and_use)}<br>适用边界：${esc(s.limits)}<br>${s.urls.map(u=>`<a href="${esc(u)}" target="_blank" rel="noopener">${esc(u)}</a>`).join(" ")}</div>`).join("")}</div>`;
- h+=`<div class="card"><b>人工复核记录</b><div class="row"><label>审核人 <input id="rv" placeholder="真实姓名或角色"></label>
+ const lab=o=>(rules[o]&&rules[o].label)||OUT[o]||o;
+ const req={missing_materials:"缺少的材料",next_step:"下一步",rationale:"理由",revised_text:"修改后的文案",revised_by:"实际修改人",recheck:"再检测记录",evidence_obtained:"至少一份已取得的材料"};
+ h+=`<div class="card"><b>人工复核记录</b>（模型不会自动选择处理状态；没有填齐所需内容就不能保存）
+  <div class="row"><label>审核人 <input id="rv" placeholder="真实姓名或角色（必填）"></label>
   <label>人工分流 <select id="ht"><option value="">沿用</option><option>flag</option><option>review</option><option>clear</option><option>unknown</option></select></label>
-  <label>处理状态 <select id="ho">${outcomes.map(o=>`<option value="${o}">${OUT[o]}</option>`).join("")}</select></label></div>
-  <textarea id="notes" placeholder="依据、补充事实来源（发布方陈述请注明 self_reported）、保留分歧"></textarea>
+  <label>处理状态 <select id="ho">${outcomes.map(o=>`<option value="${o}">${esc(lab(o))}</option>`).join("")}</select></label></div>
+  <p class="k" id="reqhint"></p>
+  <textarea id="notes" placeholder="理由：为什么这样处理；有不同意见的，在这里保留"></textarea>
+  <textarea id="mm" placeholder="缺少的材料（例如：岗位说明书、规范条款和版本、统一筛选规则）"></textarea>
+  <textarea id="ns" placeholder="下一步（谁、做什么、何时）"></textarea>
+  <textarea id="ev" placeholder="已取得的材料，每行一条：描述｜来源｜核验状态（self_reported / independently_verified / not_obtained）。发布方自述请标 self_reported"></textarea>
+  <details><summary>修改文案（与原文分开保存，不代表原公告已修改）</summary>
+   <div class="row"><button id="usetpl">填入第 1 条的模板建议</button></div>
+   <textarea id="rt" placeholder="修改后的文案"></textarea>
+   <div class="row"><label>实际修改人 <input id="rb" placeholder="谁改的"></label><button id="recheck">对修改文案再检测（会调用一次模型）</button></div>
+   <input id="rid" placeholder="再检测记录编号" style="width:100%"><textarea id="rn" placeholder="再检测说明（例如：再检测结果为 clear，没有发现新线索）"></textarea></details>
   <div class="row"><button class="primary" id="save">保存人工记录</button><a id="exp" href="/api/export/${a.analysis_id}"><button>导出审核记录 JSON</button></a><span id="saved" class="k"></span></div>
-  ${a.human_reviews.length?`<p class="k">已保存 ${a.human_reviews.length} 条人工记录（按时间顺序，只追加不删除）：</p>${a.human_reviews.map(v=>`<div class="src"${v.voided?' style="text-decoration:line-through;opacity:.6"':""}>${v.voided?`<span style="text-decoration:none">【已作废：${esc(v.voided)}】</span><br>`:""}<b>${esc(v.reviewed_at.slice(0,19).replace("T"," "))} UTC · ${esc(v.reviewer)}</b><br>逐条判断：${(v.finding_decisions||[]).map(d=>esc(`「${d.quote}」→ ${DEC[d.decision]||d.decision}`)).join("；")||"—"}<br>人工分流：${esc(v.human_triage||"沿用模型分流")} · 处理状态：${esc(OUT[v.human_outcome]||v.human_outcome)} · 法律结论：not_determined<br>备注：${esc(v.notes||"—")}</div>`).join("")}`:""}</div>
+  ${a.human_reviews.length?`<p class="k">已保存 ${a.human_reviews.length} 条人工记录（按时间顺序，只追加不删除）：</p>${a.human_reviews.map(v=>`<div class="src"${v.voided?' style="text-decoration:line-through;opacity:.6"':""}>${v.voided?`<span style="text-decoration:none">【已作废：${esc(v.voided)}】</span><br>`:""}<b>${esc(v.reviewed_at.slice(0,19).replace("T"," "))} UTC · ${esc(v.reviewer)}</b><br>逐条判断：${(v.finding_decisions||[]).map(d=>esc(`「${d.quote}」→ ${DEC[d.decision]||d.decision}`)).join("；")||"—"}<br>人工分流：${esc(v.human_triage||"沿用模型分流")} · 处理状态：${esc(lab(v.human_outcome))} · 法律结论：not_determined<br>理由：${esc(v.rationale||v.notes||"—")}${v.missing_materials?`<br>缺少材料：${esc(v.missing_materials)}`:""}${v.next_step?`<br>下一步：${esc(v.next_step)}`:""}${(v.evidence||[]).length?`<br>材料：${v.evidence.map(e=>esc(`${e.description}（${e.source||"来源未填"}｜${e.verification}）`)).join("；")}`:""}${v.revised_text?`<br>修改文案（与原文分开保存）：${esc(v.revised_text)} · 修改人：${esc(v.revised_by)} · 再检测：${esc(v.recheck_analysis_id||"")} ${esc(v.recheck_note||"")}`:""}</div>`).join("")}`:""}</div>
   <div class="card"><details><summary>模型原始输出（未修改）</summary><div class="mono">${esc(a.raw_model_output)}</div></details></div>`;
  $("#out").innerHTML=h;
  if($("#retry"))$("#retry").onclick=()=>run({text:a.input_text,retry_of:a.analysis_id});
+ const showReq=()=>{const o=$("#ho").value;$("#reqhint").textContent=rules[o]?`“${lab(o)}”需要填写：${rules[o].required.map(x=>req[x]||x).join("、")}`:""};$("#ho").onchange=showReq;showReq();
+ if($("#usetpl"))$("#usetpl").onclick=()=>{if(cards[0])$("#rt").value=cards[0].suggestion_template};
+ if($("#recheck"))$("#recheck").onclick=async()=>{const t=$("#rt").value.trim();if(!t){$("#saved").textContent="请先填写修改后的文案";return}
+  try{const r2=await api("/api/analyze",{text:t,recheck_of:a.analysis_id});$("#rid").value=r2.analysis_id;$("#rn").value=`再检测结果：${r2.record.label}（${r2.record.triage}）；线索 ${r2.record.findings.length} 条`;$("#saved").textContent="再检测完成（另存为一条新记录）"}catch(e){$("#saved").textContent="再检测失败："+e.message}};
  $("#save").onclick=async()=>{const fd=[...document.querySelectorAll("select[data-f]")].map(s=>({finding_index:+s.dataset.f,quote:r.findings[+s.dataset.f].quote,decision:s.value}));
-  try{current=await api("/api/review",{analysis_id:a.analysis_id,reviewer:$("#rv").value,human_triage:$("#ht").value||null,human_outcome:$("#ho").value,notes:$("#notes").value,finding_decisions:fd});render();$("#saved").textContent="已保存"}catch(e){$("#saved").textContent="保存失败："+e.message}}}
+  const ev=$("#ev").value.split("\n").map(x=>x.trim()).filter(Boolean).map(x=>{const p=x.split(/[｜|]/).map(y=>y.trim());return{description:p[0]||"",source:p[1]||"",verification:p[2]||""}});
+  try{current=await api("/api/review",{analysis_id:a.analysis_id,reviewer:$("#rv").value,human_triage:$("#ht").value||null,human_outcome:$("#ho").value,rationale:$("#notes").value,missing_materials:$("#mm").value,next_step:$("#ns").value,evidence:ev,revised_text:$("#rt").value,revised_by:$("#rb").value,recheck_analysis_id:$("#rid").value,recheck_note:$("#rn").value,finding_decisions:fd});render();$("#saved").textContent="已保存"}catch(e){$("#saved").textContent="不能保存："+e.message}}}
 init().then(async()=>{const v=new URLSearchParams(location.search).get("view");if(v){try{current=await api("/api/export/"+encodeURIComponent(v));render()}catch(e){$("#out").innerHTML=`<div class="card t-flag">记录不存在：${esc(e.message)}</div>`}}});
 </script>
 </body>

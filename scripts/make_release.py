@@ -28,7 +28,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PACK = ROOT / "data_v2" / "legal_pack"
 SECRET = re.compile(r"ak-[0-9a-f]{20,}|gho_\w{10,}|ghp_\w{10,}|hf_[A-Za-z0-9]{20,}|Bearer\s+ak-")
 EXCLUDE_DIRS = {".venv", "__pycache__", "release", "logs"}
-EXCLUDE_PREFIX = ["data_v2/legal_pack/", "outputs_v2/eval/", "outputs/internal_dev/", "outputs_locked/", "docs_v5/private/"]
+EXCLUDE_PREFIX = ["data_v2/legal_pack/", "outputs_v2/eval/", "outputs/internal_dev/", "outputs_locked/", "docs_v5/private/", "docs_v5/SHAREABLE_RULES/"]
 EXCLUDE_FILES = {"data_v2/dev_labels.jsonl", "docs_v2/LEGAL_PACK_INTEGRATION.md", "docs_v2/FAILURES_V2.md",
                  "docs_v4/demo/analyses.jsonl", "docs_v4/demo/reviews.jsonl",
                  "docs_v4/FINAL_HF_DISCUSSION.md", "docs_v4/FINAL_GITHUB_ISSUE_REPLY.md",

@@ -37,6 +37,27 @@
    "file": "mvp/index.html",
    "reason": "界面：照护提示语改为自写表述（原句来自法学研究）；hide=sources 时同时隐藏 SOP 问题原文。推理不变。",
    "sha256": "de6be100d84083106469532709bfea422935902414b21011b4963f422a76511c"
+  },
+  {
+   "date_utc": "2026-10-31T09:45:06.150836+00:00",
+   "file": "mvp/server.py",
+   "reason": "接入 review-flow v1.0：复核卡，处理状态改为 6 个规定状态加 2 个保留状态，结案条件不满足就拒绝保存；新增缺少材料、下一步、证据、修改文案、再检测等字段。推理调用路径未改。",
+   "sha256": "aa3ae364607cda003e0c31da0701e0fc81de5b4fdc191901b4ec16a3d51ecb8a"
+  },
+  {
+   "date_utc": "2026-10-31T09:45:06.150836+00:00",
+   "file": "mvp/index.html",
+   "reason": "界面：复核卡、结案条件提示、证据和修改文案表单、再检测按钮。推理不变。",
+   "sha256": "b47796b2cc5bb7f604d3ac1a1315de71fd713996e91da5003f802565529b85d1"
+  }
+ ],
+ "separate_components": [
+  {
+   "date_utc": "2026-10-31T09:45:06.150836+00:00",
+   "file": "mvp/review_flow.py",
+   "version": "review-flow-v1.0-2026-10-31",
+   "sha256": "e92583fedbc69900158c773d153460a0b04bed307319283bede472e8765a0a00",
+   "note": "人工复核流程层，不属于冻结推理和评分链路；条款参考取自 LEGAL_EVIDENCE_MEMO（2026-10-30）；不改变 rfl/contract_v2.py 中的 REASON_TRIAGE 和 REASON_SOURCES。"
   }
  ]
 }

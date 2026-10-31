@@ -22,6 +22,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from rfl.contract_v2 import load_whitelist  # noqa: E402
+from mvp import review_flow  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 LOGS = HERE / "logs"
@@ -30,8 +31,7 @@ SOP_CARE_QUESTIONS = [  # 逐字摘自 HUMAN_REVIEW_SOP.md「家庭／育儿条�
     "一名有照护责任但能满足上述安排的应聘者，是否与其他人按相同标准考虑？请说明筛选规则；不提供求职者姓名、孩子情况或家庭成员资料。",
     "“没有家庭／育儿负担”是否直接决定不予录用、优先级或面试资格？是否只对某一性别执行？如有已有审核材料，请仅提供必要的脱敏摘录。",
 ]
-HUMAN_OUTCOMES = ["pending_evidence", "context_corrected", "job_requirement_supported", "concern_supported",
-                  "legal_review_required", "out_of_scope"]
+HUMAN_OUTCOMES = list(review_flow.STATUSES)  # review-flow v1.0; legacy legal_review_required only in old records
 
 
 class Engine:
@@ -92,12 +92,16 @@ class H(BaseHTTPRequestHandler):
             return self._send(200, (HERE / "index.html").read_bytes(), "text/html; charset=utf-8")
         if self.path == "/api/status":
             return self._send(200, {"mode": "live" if App.engine else "replay", "engine": App.engine.meta if App.engine else None,
-                                    "replay_ids": sorted(App.replay), "outcomes": HUMAN_OUTCOMES})
+                                    "replay_ids": sorted(App.replay), "outcomes": HUMAN_OUTCOMES,
+                                    "outcome_rules": {k: {"label": v[0], "required": v[1]} for k, v in review_flow.STATUSES.items()},
+                                    "review_flow_version": review_flow.REVIEW_FLOW_VERSION})
         if self.path.startswith("/api/export/"):
             aid = self.path.rsplit("/", 1)[-1]
             a = App.analyses.get(aid)
             if not a:
                 return self._send(404, {"error": "unknown analysis id"})
+            if "review_cards" not in a:  # records created before review-flow v1.0
+                a["review_cards"] = review_flow.build_cards(a["record"])
             return self._send(200, a, extra={"Content-Disposition": f'attachment; filename="audit_{aid}.json"'})
         return self._send(404, {"error": "not found"})
 
@@ -128,17 +132,18 @@ class H(BaseHTTPRequestHandler):
             a = App.analyses.get(body.get("analysis_id"))
             if not a:
                 return self._send(404, {"error": "unknown analysis id"})
-            if body.get("human_outcome") not in HUMAN_OUTCOMES:
-                return self._send(400, {"error": "bad human_outcome"})
-            if body.get("human_triage") not in (None, "", "flag", "review", "clear", "unknown"):
-                return self._send(400, {"error": "bad human_triage"})
-            fds = body.get("finding_decisions", [])
-            if not isinstance(fds, list) or any(not isinstance(d, dict) or d.get("decision") not in ("accept", "modify", "reject", "pending") for d in fds):
-                return self._send(400, {"error": "bad finding_decisions"})
-            rev = {"reviewed_at": now(), "reviewer": (body.get("reviewer") or "").strip() or "未填写",
-                   "finding_decisions": body.get("finding_decisions", []), "human_triage": body.get("human_triage"),
-                   "human_outcome": body["human_outcome"], "notes": body.get("notes", ""),
-                   "legal_conclusion": "not_determined"}
+            errs = review_flow.validate_review(body, len(a["record"].get("findings") or []))
+            if errs:
+                return self._send(400, {"error": "；".join(errs), "errors": errs})
+            rev = {"reviewed_at": now(), "reviewer": body["reviewer"].strip(),
+                   "review_flow_version": review_flow.REVIEW_FLOW_VERSION,
+                   "finding_decisions": body.get("finding_decisions", []), "human_triage": body.get("human_triage") or None,
+                   "human_outcome": body["human_outcome"], "rationale": body.get("rationale", ""),
+                   "missing_materials": body.get("missing_materials", ""), "next_step": body.get("next_step", ""),
+                   "evidence": body.get("evidence") or [],
+                   "revised_text": body.get("revised_text", ""), "revised_by": body.get("revised_by", ""),
+                   "recheck_analysis_id": body.get("recheck_analysis_id", ""), "recheck_note": body.get("recheck_note", ""),
+                   "original_text_unchanged": True, "legal_conclusion": "not_determined"}
             a["human_reviews"].append(rev)
             append("reviews.jsonl", {"analysis_id": a["analysis_id"], **rev})
             return self._send(200, a)
@@ -166,8 +171,10 @@ class H(BaseHTTPRequestHandler):
                  "raw_model_output": row.get("raw_output_clean"), "provider_error": row.get("error"),
                  "usage": row.get("usage"), "response_model": row.get("response_model"), "response_id": row.get("response_id"),
                  "record": rec, "latency_s": row.get("end_to_end_s"), "raw_call": safe_row, "model_repairs": pred.get("repairs")}
-        if body.get("retry_of"):
-            a["retry_of"] = body["retry_of"]
+        for k in ("retry_of", "recheck_of"):
+            if body.get(k):
+                a[k] = body[k]
+        a["review_cards"] = review_flow.build_cards(a["record"])
         a["sop_care_questions"] = SOP_CARE_QUESTIONS if a["record"].get("care_condition") else []
         a["human_reviews"] = []
         a["disclaimer"] = "文本分流辅助，不是法律意见；clear 不表示合法；未完成独立锁定测试。"

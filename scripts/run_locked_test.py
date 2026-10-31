@@ -2,7 +2,8 @@
 
   python3 scripts/run_locked_test.py --inputs /path/locked_inputs.jsonl --registered-sha <hex from 出题人>
 
-Input rows may use `case_id` or `id` plus `text`, nothing else (v1.1, 2026-10-30).
+Input rows may use `case_id` or `id` plus `text`, nothing else (v1.1, 2026-10-30). CSV (header case_id,text) or JSONL (v1.2, 2026-10-31).
+Before running it reports exact / whitespace-normalised duplicates against the 86-case development set.
 After the run it writes outputs_locked/PREDICTIONS_SEALED.json (SHA-256 of every prediction file) BEFORE any label
 is opened; evaluation afterwards must verify that seal.
 
@@ -39,19 +40,30 @@ def main():
         sys.exit(f"REFUSED: frozen files changed: {changed}")
     if sha(a.inputs) != a.registered_sha:
         sys.exit("REFUSED: inputs hash does not match the registered hash")
-    rows = [json.loads(x) for x in Path(a.inputs).read_text(encoding="utf-8").splitlines() if x.strip()]
+    if a.inputs.lower().endswith(".csv"):
+        import csv
+        with open(a.inputs, encoding="utf-8-sig", newline="") as fh:
+            rows = [dict(r) for r in csv.DictReader(fh)]
+    else:
+        rows = [json.loads(x) for x in Path(a.inputs).read_text(encoding="utf-8").splitlines() if x.strip()]
     extra = {k for r in rows for k in r} - {"id", "case_id", "text"}
     if extra:
         sys.exit(f"REFUSED: inputs contain non-input fields {sorted(extra)} (labels must stay with the 出题人)")
     norm = [{"id": r.get("case_id", r.get("id")), "text": r["text"]} for r in rows]
     if any(not x["id"] or not isinstance(x["text"], str) for x in norm) or len({x["id"] for x in norm}) != len(norm):
         sys.exit("REFUSED: every row needs a unique case_id/id and a text")
+    dev = [json.loads(x)["text"] for x in (ROOT / "data_v2/dev_inputs.jsonl").read_text(encoding="utf-8").splitlines() if x.strip()]
+    ws = lambda t: "".join(t.split())  # noqa: E731
+    dup = {"checked_against": "data_v2/dev_inputs.jsonl (86 dev cases; public package holds 70 of them)",
+           "exact": [x["id"] for x in norm if x["text"] in dev],
+           "whitespace_normalised": [x["id"] for x in norm if ws(x["text"]) in {ws(d) for d in dev}]}
+    print("duplicate check vs dev set:", json.dumps(dup, ensure_ascii=False))
     if OUT.exists() and any(OUT.iterdir()):
         sys.exit("REFUSED: outputs_locked/ already contains a run; the locked test is one-shot")
     OUT.mkdir(exist_ok=True)
     norm_path = OUT / "locked_inputs_normalised.jsonl"
     norm_path.write_text("".join(json.dumps(x, ensure_ascii=False) + "\n" for x in norm), encoding="utf-8")
-    (OUT / "LOCKED_RUN_META.json").write_text(json.dumps({"inputs_sha256": a.registered_sha, "n": len(rows),
+    (OUT / "LOCKED_RUN_META.json").write_text(json.dumps({"inputs_sha256": a.registered_sha, "n": len(rows), "duplicate_check": dup,
                                                            "freeze": "docs_v3/FREEZE_v2.1_pp2.3.json"}, indent=1), encoding="utf-8")
     py = sys.executable
     subprocess.run([py, "scripts/run_provider.py", "--provider", "xfyun_maas", "--prompt-module", "rfl.prompt_v2_1",
