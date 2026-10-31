@@ -177,7 +177,7 @@ class H(BaseHTTPRequestHandler):
         a["review_cards"] = review_flow.build_cards(a["record"])
         a["sop_care_questions"] = SOP_CARE_QUESTIONS if a["record"].get("care_condition") else []
         a["human_reviews"] = []
-        a["disclaimer"] = "文本分流辅助，不是法律意见；clear 不表示合法；未完成独立锁定测试。"
+        a["disclaimer"] = "文本分流辅助，不是法律意见；clear 不表示合法；一次独立锁定测试与单一研究者参考分类一致 15/30，不是法律准确率。"
         App.analyses[aid] = a
         append("analyses.jsonl", a)
         return self._send(200, a)

@@ -1,7 +1,0 @@
-{
- "http_attempts": 121,
- "prompt_tokens": 164304,
- "cached_prompt_tokens": 148480,
- "completion_tokens": 11535,
- "note": "本地日志统计的调用量；计费以讯飞控制台账单为准（API 不提供账单查询）。"
-}

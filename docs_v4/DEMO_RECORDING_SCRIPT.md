@@ -4,7 +4,7 @@
 
 ## 录制前准备（不进画面）
 1. 关掉无关的程序和浏览器标签，打开勿扰模式。画面里不要出现终端中的 Key、浏览器书签或聊天记录。
-2. 如果已经轮换 Key：新 Key 写入 `~/.config/rfl/xfyun_api_key`（`chmod 600`）。
+2. Key 使用现有本地配置。
 3. 启动服务：
 ```bash
 cd rfl_stage1 && python3 mvp/server.py --provider xfyun_maas --replay outputs_v3/maas_v2.1_plus_pp2.3_dev86/records.jsonl --replay-raw outputs_v3/maas/dev86_v2.1_raw/raw.jsonl
@@ -39,7 +39,7 @@ cd rfl_stage1 && python3 mvp/server.py --provider xfyun_maas --replay outputs_v3
 ## 3:40–4:20 结尾：局限与诚实说明
 - 画面：切到 `docs_v4/DEMO_WALKTHROUGH.md` 或失败日志。
 - 口播要点：
-  - 现有的一致率数字（例如 78/86）来自开发集，标签是 AI 辅助的研究意见，**不是法律准确率**。独立的锁定测试由法学联合研究者出题，状态是【未完成 / 已完成，填写真实结果】。
+  - 现有的一致率数字（例如 78/86）来自开发集，标签是 AI 辅助的研究意见，**不是法律准确率**。独立锁定测试已完成一次：与单一研究者的参考分类一致 15/30，争议 12 条 0/12，其余 18 条 15/18，有 2 条网络失败。这也不是法律准确率。
   - 云端模型偶尔会输出格式错误的 JSON。程序只做有记录的修复，修复不了就交给人工，绝不当作“没问题”。
   - 团队有两位真人成员：负责人和法学联合研究者。Claude 和 ChatGPT 是开发辅助工具，不是团队成员。
 

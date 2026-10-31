@@ -11,10 +11,10 @@
 | 后处理 v2.3 哈希 | `6e13d76c69a7148babf217526cef67ba841468b35a7e54000e08b2cec3b47d42`（依赖的 v2.2：`7215776c168ac6b5b92ca3d1014236c91d65b41b0381a53c8b8dd6b4e10215c5`） |
 | 模型标识和服务版本的可见程度 | 讯飞星辰 MaaS，`spark-x2.6-4b`；每次响应都会核对 `model` 字段；**云端 revision、精度、硬件均未披露** |
 | 参数 | `thinking.type=disabled`，`max_completion_tokens=640`，`stream=false`；服务端固定 T=1、top_p=0.95（结果有随机性） |
-| 调用时间 | 待填（执行时写入 `outputs_locked/spark_maas/run_meta.json`） |
+| 调用时间 | 2026-10-31 12:01:48–12:12:37 UTC（一次） |
 | 重试和失败策略 | Provider 内置：5xx 和 QPS、TPM 类 429 最多重试 2 次（间隔 2 秒、4 秒）；当日额度用完（11201）不重试；超时 90 秒；调用上限为 3×N+5 次；无效输出计为 invalid，不手动重跑 |
-| 输入哈希 | 待填（由负责人登记 `locked_cases.csv` 的 SHA-256） |
-| gold 保管人和锁定时间 | 待填（法学联合研究者 608 或项目负责人） |
+| 输入哈希 | `0f0665ad22c1b36221b36c571b29b2234e985371a91fc0f3b3cbc02c98fef6ba` |
+| gold 保管和解封 | 由项目负责人保管；预测封存（`ba921399…7397`）校验通过后，于 2026-10-31 解封给比较方。gold 未公开 |
 | 评分协议 | `docs_v5/LOCKED_TEST_SCORING_PROTOCOL.md` v1.1，SHA-256 `2c260b84861d9d7b9e88fa2264cb7b3a0b8b1bb2ea9eaa683910d98a8ee270f4`（v1.0 为 `0a6af395…`，原文保留） |
 | 开发集重合核查 | 运行器在执行前，对照完整的 86 条开发集做精确比对和去空白比对 |
 
